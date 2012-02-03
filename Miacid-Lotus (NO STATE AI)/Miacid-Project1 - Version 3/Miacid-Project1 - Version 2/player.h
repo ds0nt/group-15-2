@@ -3,6 +3,7 @@
 
 // Includes
 #include "foundation.h"
+#include "AIStrategy.h"
 #include <vector>
 
 // Defines
@@ -18,6 +19,9 @@ public:
 	PIECE piece;
 	bool isPlaying;
 	bool isHuman;
+
+	AIStrategy* strategy; //= new RuleStrategy(); or new StateStrategy();
+	
 	bool isRule; //if not, it is state or human
 
 	// Rules

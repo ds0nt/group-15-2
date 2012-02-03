@@ -27,6 +27,7 @@
 #include "boardfunc.h"
 #include "gamedata.h"
 
+
 // Common Function Prototypes (to avoid plentiful .h files)
 void GameSelectPlayers();
 void GameMainBoard();
@@ -38,7 +39,5 @@ void RenderMainBoard();
 void RenderResults();
 
 void PerformHumanTurn(Player &player);
-void PerformAIStateTurn(Player &player);
-void PerformAIRuleTurn(Player &player);
 
 #endif // FOUNDATION_H

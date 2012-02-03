@@ -174,10 +174,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\artificial.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\game.cpp"
 				>
 			</File>
@@ -267,6 +263,22 @@
 			</File>
 			<File
 				RelativePath=".\boardfunc.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="AI"
+			>
+			<File
+				RelativePath=".\AIStrategy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RuleStrategy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RuleStrategy.h"
 				>
 			</File>
 		</Filter>

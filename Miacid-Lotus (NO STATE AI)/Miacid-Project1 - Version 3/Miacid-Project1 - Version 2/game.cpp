@@ -104,16 +104,18 @@ void GameMainBoard()
 	for (GameData()->currentPlayer = 0; GameData()->currentPlayer < GameData()->GetNumPlayers(); GameData()->currentPlayer++)
 	{
 		// If the player has won already then skip their turn
-		if (GameData()->board.PlayerHasWon(GameData()->players.at(GameData()->currentPlayer).piece))
+		Player* p = &(GameData()->players.at(GameData()->currentPlayer));
+
+		if (GameData()->board.PlayerHasWon(p->piece))
 			continue; //exit their turn
 
 		// AI or Human?
-		if (GameData()->players.at(GameData()->currentPlayer).isHuman)
-			PerformHumanTurn(GameData()->players.at(GameData()->currentPlayer));
-		else if (!GameData()->players.at(GameData()->currentPlayer).isRule)
-			PerformAIStateTurn(GameData()->players.at(GameData()->currentPlayer));
-		else // if (!GameData()->players.at(GameData()->currentPlayer).isRule)
-			PerformAIRuleTurn(GameData()->players.at(GameData()->currentPlayer)); // default to the rule AI
+		if (p->isHuman)
+			PerformHumanTurn(*p);
+		else
+		{
+			p->strategy->doTurn(*p);
+		}
 
 		// If the player just won the game, then let's exit...
 		if (GameData()->board.PlayerHasWon(GameData()->players.at(GameData()->currentPlayer).piece))
