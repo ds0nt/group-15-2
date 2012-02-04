@@ -8,7 +8,22 @@ void RenderLoading()
 }
 
 // The screen displayed to select the number of players
-// The screen displayed to select the number of players
+void RenderSelectPlayer(PTYPE p, int x, int y)
+{
+	switch (p)
+	{
+	case PT_HUMAN:
+		GameData()->LotusHuman.displayAt(x,y);
+		break;
+	case PT_RULEAI:
+		GameData()->LotusAIRule.displayAt(x,y);
+		break;
+	case PT_STATEAI:
+		GameData()->LotusAIState.displayAt(x,y);
+		break;
+	}
+}
+
 void RenderSelectPlayers()
 {
 	GameData()->LotusFrontBoard.displayAt(0, 0);
@@ -17,41 +32,13 @@ void RenderSelectPlayers()
 	else
 	{
 		GameData()->LotusPlayer1.displayAt(100, 300);
-		if (GameData()->players.at(0).isHuman)
-			GameData()->LotusHuman.displayAt(100,325);
-		else if (GameData()->players.at(0).isRule)
-			GameData()->LotusAIRule.displayAt(100,325);
-		else
-			GameData()->LotusAIState.displayAt(100,325);
-		
+		RenderSelectPlayer(GameData()->players.at(0).type, 100, 325);
 		GameData()->LotusPlayer2.displayAt(300, 300);
-		if (GameData()->players.at(1).isHuman)
-			GameData()->LotusHuman.displayAt(300,325);
-		else if (GameData()->players.at(1).isRule)
-			GameData()->LotusAIRule.displayAt(300,325);
-		else
-			GameData()->LotusAIState.displayAt(300,325);
-
+		RenderSelectPlayer(GameData()->players.at(1).type, 300, 325);
 		GameData()->LotusPlayer3.displayAt(100, 400);
-		if (!GameData()->players.at(2).isPlaying)
-			GameData()->LotusNotPlaying.displayAt(100,425);
-		else if (GameData()->players.at(2).isHuman)
-			GameData()->LotusHuman.displayAt(100,425);
-		else if (GameData()->players.at(2).isRule)
-			GameData()->LotusAIRule.displayAt(100,425);
-		else
-			GameData()->LotusAIState.displayAt(100,425);
-
+		RenderSelectPlayer(GameData()->players.at(2).type, 100, 425);
 		GameData()->LotusPlayer4.displayAt(300, 400);
-		if (!GameData()->players.at(3).isPlaying)
-			GameData()->LotusNotPlaying.displayAt(300,425);
-		else if (GameData()->players.at(3).isHuman)
-			GameData()->LotusHuman.displayAt(300,425);
-		else if (GameData()->players.at(3).isRule)
-			GameData()->LotusAIRule.displayAt(300,425);
-		else
-			GameData()->LotusAIState.displayAt(300,425);
-
+		RenderSelectPlayer(GameData()->players.at(3).type, 300, 425);
 		GameData()->LotusFinished.displayAt(232, 350);
 	}
 }

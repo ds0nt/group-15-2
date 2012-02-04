@@ -1,6 +1,5 @@
-#include "foundation.h"
+#pragma once
 class Player;
-
 class AIStrategy
 {
 public:

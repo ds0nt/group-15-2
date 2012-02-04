@@ -30,10 +30,6 @@ public:
 	PNG LotusHuman;
 	PNG LotusFinished;
 	PNG LotusNotPlaying;
-	PlayerType player1;
-	PlayerType player2;
-	PlayerType player3;
-	PlayerType player4;
 	//
 
 	bool gLoaded;

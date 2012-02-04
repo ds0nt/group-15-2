@@ -1,60 +1,28 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
-// Includes
-#include "foundation.h"
-#include "AIStrategy.h"
-#include <vector>
-
+#pragma once
 // Defines
 #define PLAYERS_MAX 4
 
-enum PTYPE {PLAYER_HUMAN, PLAYER_RULEBASED, PLAYER_STATEBASED};
 enum PIECE {PIECE_BAD, PIECE_P1, PIECE_P2, PIECE_P3, PIECE_P4};
+enum PTYPE {PT_HUMAN, PT_RULEAI, PT_STATEAI, PT_OFF};
+class Player;
+// Includes
+#include "foundation.h"
+#include "AIStrategy.h"
+#include "RuleStrategy.h"
+#include "StateStrategy.h"
+#include <vector>
+
 
 class Player
 {
 public:
 	// General
 	PIECE piece;
-	bool isPlaying;
-	bool isHuman;
+	PTYPE type;
+	AIStrategy* strategy;
 
-	AIStrategy* strategy; //= new RuleStrategy(); or new StateStrategy();
-	
-	bool isRule; //if not, it is state or human
-
-	// Rules
-	// nothing here
-
-	// States
-	// to do...
-
-	Player()
-	{
-		this->piece = PIECE_BAD;
-		this->isPlaying = 0;
-		this->isHuman = 1;
-		this->isRule = 0;
-
-		// some state code may go here..
-	}
+	Player();
+	~Player();
+	void createStrategy();	
+	void changeType();
 };
-
-// Somewhat different from Player
-class PlayerType
-{
-public:
-	bool isPlaying;
-	bool isHuman;
-	bool isRule;
-	
-	PlayerType()
-	{
-		isPlaying=true;
-		isHuman=true;
-		isRule=false;
-	}
-};
-
-#endif // PLAYER_H

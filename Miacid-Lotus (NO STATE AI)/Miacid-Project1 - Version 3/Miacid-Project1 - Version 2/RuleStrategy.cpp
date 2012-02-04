@@ -2,7 +2,7 @@
 
 void RuleStrategy::onBoardChange()
 {
-
+	//State Strategy uses this
 }
 
 void RuleStrategy::doTurn(Player player)
