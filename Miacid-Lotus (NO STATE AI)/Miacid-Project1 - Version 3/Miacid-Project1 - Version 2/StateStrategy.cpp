@@ -7,5 +7,5 @@ void StateStrategy::onBoardChange()
 
 void StateStrategy::doTurn(Player player)
 {
-
+	
 }

@@ -10,4 +10,6 @@ public:
 	StateStrategy(){};
 	void onBoardChange();
 	void doTurn(Player p); 
+
+	
 };
