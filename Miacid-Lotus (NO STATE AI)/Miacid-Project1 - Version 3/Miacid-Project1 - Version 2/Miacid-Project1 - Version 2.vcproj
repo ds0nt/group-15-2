@@ -293,6 +293,22 @@
 				RelativePath=".\StateStrategy.h"
 				>
 			</File>
+			<Filter
+				Name="AIState"
+				>
+				<File
+					RelativePath=".\AIState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateRegular.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateRegular.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
