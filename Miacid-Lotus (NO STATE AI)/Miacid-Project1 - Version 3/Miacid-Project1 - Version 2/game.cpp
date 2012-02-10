@@ -2,19 +2,6 @@
 #include "foundation.h"
 #include <cstring>
 
-// Define who is playing the game
-void ChangeAI (bool &isHuman, bool &isRule)
-{
-	if (isHuman)
-	{
-		isHuman=false;
-		isRule=true;
-	}
-	else if (isRule)
-		isRule=false;
-	else if (!isRule && !isHuman)
-		isHuman=true;
-}
 
 void GameSelectPlayers()
 {
@@ -51,15 +38,17 @@ void GameSelectPlayers()
 
 		// Acceptable value?
 		if (GameData()->numplayers >= 2 && GameData()->numplayers <= 4)
+		{
+			if(GameData()->numplayers < 4)
+				GameData()->players.at(3).type = PT_OFF;
+			if(GameData()->numplayers < 3)
+				GameData()->players.at(2).type = PT_OFF;
+			
 			break;
+		}
 	}
 
-	// Set players to playing
-	for (int i = 0; i < GameData()->numplayers; i++)
-		GameData()->players.at(i).isPlaying = 1;
-
-	// Select the type for each player
-	GameData()->selectPlayerType = 1;
+	GameData()->selectPlayerType = 1; // tell the rendering function what to do
 
 	while (true)
 	{
@@ -74,18 +63,23 @@ void GameSelectPlayers()
 
 		// Adjust player types...
 		if (mousepos.x >= 100 && mousepos.x <= 228 && mousepos.y >= 300 && mousepos.y <= 364)
-			ChangeAI(GameData()->players.at(0).isHuman, GameData()->players.at(0).isRule);
+			GameData()->players.at(0).changeType();
 		else if (mousepos.x >= 300 && mousepos.x <= 428 && mousepos.y >= 300 && mousepos.y <= 364)
-			ChangeAI(GameData()->players.at(1).isHuman, GameData()->players.at(1).isRule);
-		else if (mousepos.x >= 100 && mousepos.x <= 228 && mousepos.y >= 400 && mousepos.y <= 464 && GameData()->players.at(2).isPlaying)
-			ChangeAI(GameData()->players.at(2).isHuman, GameData()->players.at(2).isRule);
-		else if (mousepos.x >= 300 && mousepos.x <= 428 && mousepos.y >= 400 && mousepos.y <= 464 && GameData()->players.at(3).isPlaying)
-			ChangeAI(GameData()->players.at(3).isHuman, GameData()->players.at(3).isRule);
+			GameData()->players.at(1).changeType();
+		else if (mousepos.x >= 100 && mousepos.x <= 228 && mousepos.y >= 400 && mousepos.y <= 464 && GameData()->players.at(2).type != PT_OFF)
+			GameData()->players.at(2).changeType();
+		else if (mousepos.x >= 300 && mousepos.x <= 428 && mousepos.y >= 400 && mousepos.y <= 464 && GameData()->players.at(3).type != PT_OFF)
+			GameData()->players.at(3).changeType();
 
 		// Exit when you click on "Done"
 		if (mousepos.x >= 232 && mousepos.x <= 296 && mousepos.y >= 350 && mousepos.y <= 414)
 			break;
 	}
+	
+	GameData()->players.at(0).createStrategy();
+	GameData()->players.at(1).createStrategy();
+	GameData()->players.at(2).createStrategy();
+	GameData()->players.at(3).createStrategy();
 
 	// Create the board
 	GameData()->CreateBoard();
@@ -104,16 +98,18 @@ void GameMainBoard()
 	for (GameData()->currentPlayer = 0; GameData()->currentPlayer < GameData()->GetNumPlayers(); GameData()->currentPlayer++)
 	{
 		// If the player has won already then skip their turn
-		if (GameData()->board.PlayerHasWon(GameData()->players.at(GameData()->currentPlayer).piece))
+		Player* p = &(GameData()->players.at(GameData()->currentPlayer));
+
+		if (GameData()->board.PlayerHasWon(p->piece))
 			continue; //exit their turn
 
 		// AI or Human?
-		if (GameData()->players.at(GameData()->currentPlayer).isHuman)
-			PerformHumanTurn(GameData()->players.at(GameData()->currentPlayer));
-		else if (!GameData()->players.at(GameData()->currentPlayer).isRule)
-			PerformAIStateTurn(GameData()->players.at(GameData()->currentPlayer));
-		else // if (!GameData()->players.at(GameData()->currentPlayer).isRule)
-			PerformAIRuleTurn(GameData()->players.at(GameData()->currentPlayer)); // default to the rule AI
+		if (p->type == PT_HUMAN)
+			PerformHumanTurn(*p);
+		else
+		{
+			p->strategy->doTurn(*p);
+		}
 
 		// If the player just won the game, then let's exit...
 		if (GameData()->board.PlayerHasWon(GameData()->players.at(GameData()->currentPlayer).piece))
