@@ -272,15 +272,15 @@ int Board::GetSizeOfStack(int pos)
 		pos++; //-1 -> 0, -2 -> -1, ...
 		pos *= -1; //0 -> 0, -1 -> 1, ...
 
-		return this->start[pos].size();
+		return (int) this->start[pos].size();
 	}
 
 	//Finish stack (just for robustness of code)
 	if (pos >= MAX_GAME_POSITIONS)
-		return this->finish.size();
+		return (int) this->finish.size();
 
 	//Main board stacks
-	return this->position[pos].size();
+	return (int) this->position[pos].size();
 }
 
 // Move a piece...
