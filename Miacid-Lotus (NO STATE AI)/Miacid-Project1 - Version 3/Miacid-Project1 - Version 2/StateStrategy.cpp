@@ -1,7 +1,8 @@
 #include "StateStrategy.h"
 
-StateStrategy::StateStrategy()
+StateStrategy::StateStrategy(Player* p)
 {
+	this->player = p;
 	this->currentState = new AIStateRegular(this);
 }
 
@@ -15,6 +16,9 @@ void StateStrategy::setState(STATETYPE newState)
 		break;
 	case ST_ANGRY:
 		this->currentState = new AIStateAngry(this);
+		break;
+	case ST_RUSH_TO_END:
+		this->currentState = new AIStateRushToEnd(this);
 		break;
 	}
 }

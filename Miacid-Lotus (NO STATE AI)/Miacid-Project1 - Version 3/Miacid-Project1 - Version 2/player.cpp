@@ -34,7 +34,7 @@ void Player::changeType()
 void Player::createStrategy()
 {
 	if (this->type == PT_STATEAI)
-		this->strategy = new StateStrategy();
+		this->strategy = new StateStrategy(this);
 	else if (this->type == PT_RULEAI)
 		this->strategy = new RuleStrategy();
 }
