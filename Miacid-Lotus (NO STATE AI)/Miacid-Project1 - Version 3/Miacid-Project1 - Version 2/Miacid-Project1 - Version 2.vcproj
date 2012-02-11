@@ -301,6 +301,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\AIStateAngry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateAngry.h"
+					>
+				</File>
+				<File
 					RelativePath=".\AIStateRegular.cpp"
 					>
 				</File>
