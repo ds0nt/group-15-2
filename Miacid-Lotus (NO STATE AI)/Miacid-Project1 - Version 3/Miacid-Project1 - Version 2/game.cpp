@@ -88,6 +88,19 @@ void GameSelectPlayers()
 	GameData()->SceneState = SCENE_MAINBOARD;
 }
 
+void BoardChangeNotify()
+{
+	for (int i = 0; i < GameData()->GetNumPlayers(); i++)
+	{
+		Player* p = &(GameData()->players.at(i));
+
+		if (GameData()->board.PlayerHasWon(p->piece))
+			continue; //exit their turn
+
+		if (p->type != PT_HUMAN)
+			p->strategy->onBoardChange();
+	}
+}
 // The main loop for the board game
 void GameMainBoard()
 {
@@ -114,6 +127,7 @@ void GameMainBoard()
 		// If the player just won the game, then let's exit...
 		if (GameData()->board.PlayerHasWon(GameData()->players.at(GameData()->currentPlayer).piece))
 			GameData()->SceneState = SCENE_RESULTS;
+		BoardChangeNotify();
 	}
 
 	// End of game?

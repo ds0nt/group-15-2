@@ -20,5 +20,4 @@ void AIStateRegular::doTurn(Player p)
 void AIStateRegular::onBoardChange()
 {
 	printf("Board Update\n");
-
 }
