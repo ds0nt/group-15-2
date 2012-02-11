@@ -5,6 +5,8 @@ AIStateRegular::AIStateRegular(StateStrategy* stateMachine)
 	this->stateMachine = stateMachine;
 	printf("IN NEW STATE REGULAR!\n");
 	emotion = 0;
+	ableToMovePiece = 0;
+
 }
 
 //This is the Regular State
@@ -18,6 +20,10 @@ AIStateRegular::~AIStateRegular(void)
 
 void AIStateRegular::doTurn(Player player)
 {
+	vector<int> possibleActiveMoves;
+	vector<int> possibleStartMoves;
+//	thisPlayer = player;
+	//possibleActiveMove = new vector<int>;
 	printf("Great Success!\n");
 	// Find active pieces on the board
 	
@@ -68,21 +74,34 @@ void AIStateRegular::doTurn(Player player)
 
 
 	//find the active piece on the board.
-	vector<int> possibleActiveMoves;
+	
 
 	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
 	{
 		if (GameData()->board.IsPieceOnTop(player.piece, i))
+		{
+
 			possibleActiveMoves.push_back(i);
+		}
 	}
 
-	vector<int> possibleStartMoves;
+	ableToMovePiece = possibleActiveMoves.size();
+
+
+	
 
 	for (int i = -1; i >= -GameData()->board.numstartstacks; i--)
 	{
 		if (GameData()->board.IsPieceOnTop(player.piece, i))
+		{
 			possibleStartMoves.push_back(i);
+		}
 	}
+
+
+	//ableToMovePiece += possibleStartMoves.size();
+
+
 
 	if (possibleActiveMoves.empty())
 	{
@@ -193,8 +212,9 @@ void AIStateRegular::doTurn(Player player)
 
 			// If there's only one stack left you must select from there
 			if (possibleStartMoves.size() == 1)
+			{
 				movepos = possibleStartMoves.at(0);
-
+			}
 			// Go for the first stack that can jump on a piece (otherwise assume the above ^)
 			for (int i = 0; i < possibleStartMoves.size(); i++)
 			{
@@ -234,6 +254,7 @@ void AIStateRegular::doTurn(Player player)
 
 			// Update and and change your state
 			GameData()->board.MovePiece(movepos, endpos);
+			//ableToMovePiece++;
 
 		break;
 
@@ -263,9 +284,27 @@ void AIStateRegular::onBoardChange()
 		this->stateMachine->setState(ST_RUSH_TO_END);
 		return;
 	}
+
 	printf("Board Update while AI is in REGULAR STATE!!!!\n");
-	emotion++;
+	//if i got attack!
+
+	vector<int> possibleActiveMoves;
+/*	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
+	{
+		if (GameData()->board.IsPieceOnTop(thisPlayer.piece, i))
+		{
+
+			possibleActiveMoves.push_back(i);
+		}
+	}
+*/
+	if (possibleActiveMoves.size() < ableToMovePiece)
+		emotion++;
+
 	cout<<emotion<<endl;
+	cout<<possibleActiveMoves.size()<<endl;
+	cout<<ableToMovePiece<<endl;
+	cout<<typeid(this).name()<<endl;
 	if (emotion >= 3)
 		this->stateMachine->setState(ST_ANGRY);
 }
