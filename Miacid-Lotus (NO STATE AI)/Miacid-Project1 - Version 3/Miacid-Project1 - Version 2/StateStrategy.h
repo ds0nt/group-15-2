@@ -5,6 +5,7 @@
 #include "AIStrategy.h"
 #include "foundation.h"
 
+enum STATETYPE {ST_REGULAR};
 
 class StateStrategy : public AIStrategy
 {
@@ -16,5 +17,5 @@ public:
 	~StateStrategy();
 	void onBoardChange();
 	void doTurn(Player p);
-	void setState(AIState* newState);
+	void setState(STATETYPE newState);
 };

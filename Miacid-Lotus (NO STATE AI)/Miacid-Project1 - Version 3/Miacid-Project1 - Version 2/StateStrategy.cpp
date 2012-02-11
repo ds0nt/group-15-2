@@ -2,14 +2,20 @@
 
 StateStrategy::StateStrategy()
 {
-	this->currentState = new AIStateRegular();
+	this->currentState = new AIStateRegular(this);
 }
 
-void StateStrategy::setState(AIState* state)
+void StateStrategy::setState(STATETYPE newState)
 {
 	delete this->currentState;
-	this->currentState = state;
+	switch(newState)
+	{
+	case ST_REGULAR:
+		this->currentState = new AIStateRegular(this);
+		break;
+	}
 }
+
 StateStrategy::~StateStrategy()
 {
 	delete this->currentState;
