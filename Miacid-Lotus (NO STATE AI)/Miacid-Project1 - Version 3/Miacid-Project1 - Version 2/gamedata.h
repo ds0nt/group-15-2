@@ -1,7 +1,7 @@
 #ifndef GAMEDATA_H
 #define GAMEDATA_H
 
-enum Scene {SCENE_DEFAULT, SCENE_SELECT_PLAYERS, SCENE_MAINBOARD, SCENE_RESULTS};
+enum Scene {SCENE_DEFAULT, SCENE_SELECT_PLAYER_NUM, SCENE_SELECT_PLAYERS, SCENE_MAINBOARD, SCENE_RESULTS};
 
 class GD
 {
@@ -36,8 +36,6 @@ public:
 	bool gRunning;
 	bool bCreated;
 
-	bool selectPlayerType;
-
 	int numplayers;
 	int currentPlayer;
 	vector<Player> players;
@@ -63,6 +61,7 @@ public:
 	void ResetLastClick();
 
 	void CreatePlayer();
+	void NextPlayer();
 	int GetNumPlayers();
 
 	void RecordMove(TMove move);

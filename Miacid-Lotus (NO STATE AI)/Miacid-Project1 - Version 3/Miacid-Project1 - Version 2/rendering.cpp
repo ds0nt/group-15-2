@@ -24,23 +24,24 @@ void RenderSelectPlayer(PTYPE p, int x, int y)
 	}
 }
 
+void RenderSelectPlayerNum()
+{
+	GameData()->LotusFrontBoard.displayAt(0, 0);
+	GameData()->LotusPlayers.displayAt(0, 300);
+}
 void RenderSelectPlayers()
 {
 	GameData()->LotusFrontBoard.displayAt(0, 0);
-	if (!GameData()->selectPlayerType)
-		GameData()->LotusPlayers.displayAt(0, 300);
-	else
-	{
-		GameData()->LotusPlayer1.displayAt(100, 300);
-		RenderSelectPlayer(GameData()->players.at(0).type, 100, 325);
-		GameData()->LotusPlayer2.displayAt(300, 300);
-		RenderSelectPlayer(GameData()->players.at(1).type, 300, 325);
-		GameData()->LotusPlayer3.displayAt(100, 400);
-		RenderSelectPlayer(GameData()->players.at(2).type, 100, 425);
-		GameData()->LotusPlayer4.displayAt(300, 400);
-		RenderSelectPlayer(GameData()->players.at(3).type, 300, 425);
-		GameData()->LotusFinished.displayAt(232, 350);
-	}
+
+	GameData()->LotusPlayer1.displayAt(100, 300);
+	RenderSelectPlayer(GameData()->players.at(0).type, 100, 325);
+	GameData()->LotusPlayer2.displayAt(300, 300);
+	RenderSelectPlayer(GameData()->players.at(1).type, 300, 325);
+	GameData()->LotusPlayer3.displayAt(100, 400);
+	RenderSelectPlayer(GameData()->players.at(2).type, 100, 425);
+	GameData()->LotusPlayer4.displayAt(300, 400);
+	RenderSelectPlayer(GameData()->players.at(3).type, 300, 425);
+	GameData()->LotusFinished.displayAt(232, 350);
 }
 
 // The main render function (can be used to call other rendering functions)

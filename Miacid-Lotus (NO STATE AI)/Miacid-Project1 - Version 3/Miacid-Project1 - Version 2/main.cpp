@@ -60,7 +60,7 @@ static void IdleCallback();
 #define WINDOW_SIZEX 512
 #define WINDOW_SIZEY 512
 
-#define DEFAULT_SCENE SCENE_SELECT_PLAYERS
+#define DEFAULT_SCENE SCENE_SELECT_PLAYER_NUM
 
 // Variables common to this file
 
@@ -71,14 +71,6 @@ DWORD dwRetVal = 0;
 #pragma endregion
 
 #pragma region Init and Exit
-
-static bool Init()
-{
-	// Create handle for the update (input) thread
-	hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)GameLoop, NULL, 0, &dwID);
-
-	return 1;
-}
 
 static void Exit()
 {
@@ -155,40 +147,33 @@ static void InitGame()
 	
 	// Game has now finished loading
 	GameData()->gLoaded = 1;
+	GameData()->gRunning = 1;
+	printf("Game Loaded");
 }
 
 // The main loop that continues while the game is in action. Most everything happens here.
 static void GameLoop()
 {
-	// Initialize the game
-	InitGame();
-
-	// Loop until we're told to quit
-	while (true)
+	switch (GameData()->SceneState)
 	{
-		switch (GameData()->SceneState)
-		{
-			case SCENE_SELECT_PLAYERS:
-				GameSelectPlayers();
-				break;
+		case SCENE_SELECT_PLAYER_NUM:
+			GameSelectPlayerNum();
+			break;
+		case SCENE_SELECT_PLAYERS:
+			GameSelectPlayers();
+			break;
 
-			case SCENE_MAINBOARD:
-				GameMainBoard();
-				break;
+		case SCENE_MAINBOARD:
+			GameMainBoard();
+			break;
 
-			case SCENE_RESULTS:
-				GameResults();
-				break;
+		case SCENE_RESULTS:
+			GameResults();
+			break;
 
-			default:
-				break; // do nothing
-		}
-
-		if (!GameData()->gRunning) break; // shutdown
+		default:
+			break; // do nothing
 	}
-
-	// Exit the game
-	exit(0);
 }
 
 #pragma endregion
@@ -223,7 +208,9 @@ static void MouseCallback(int button, int state, int x, int y)
 static void RenderCallback()
 {
 	if (!GameData()->gRunning) return; //don't draw anything (should be shutting down)
-	
+	printf("Step");
+	GameLoop();	
+	printf("Step");
 	// Clear Buffers
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	
@@ -249,7 +236,10 @@ static void RenderCallback()
 	else
 	{
 		switch (GameData()->SceneState)
-		{
+		{	
+			case SCENE_SELECT_PLAYER_NUM:
+				RenderSelectPlayerNum();
+				break;
 			case SCENE_SELECT_PLAYERS:
 				RenderSelectPlayers();
 				break;
@@ -325,9 +315,8 @@ int main(int argc, char** argv)
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glEnable(GL_LIGHT0);
 
-	// Initialize the game
-	if (Init())
-		glutMainLoop();
+	InitGame();
+	glutMainLoop();
 
 	return 0;
 }

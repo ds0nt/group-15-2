@@ -625,7 +625,7 @@ bool Board::GetLocationFromXY(int x, int y, int &result)
 	}
 
 	// Assume failure
-	result = 0;
+	result = -100;
 	return 0;
 }
 

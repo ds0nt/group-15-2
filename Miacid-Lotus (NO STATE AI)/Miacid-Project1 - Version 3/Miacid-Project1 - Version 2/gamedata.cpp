@@ -51,9 +51,13 @@ void GD::CreatePlayer()
 {
 	Player newplayer;
 	this->players.push_back(newplayer);
-	this->numplayers++;
 }
 
+void GD::NextPlayer()
+{
+	this->currentPlayer = (this->currentPlayer + 1) % this->numplayers;
+	
+}
 // Get Values
 int GD::GetNumPlayers()
 {
