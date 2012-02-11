@@ -60,7 +60,7 @@ static void IdleCallback();
 #define WINDOW_SIZEX 512
 #define WINDOW_SIZEY 512
 
-#define DEFAULT_SCENE SCENE_SELECT_PLAYER_NUM
+#define DEFAULT_SCENE SCENE_LOADING
 
 // Variables common to this file
 
@@ -90,7 +90,6 @@ static void InitGame()
 	GameData()->SceneState = DEFAULT_SCENE;
 
 	// Load Graphics
-	GameData()->LoadingImage.decode("images/loading.png");
 	
 	GameData()->LotusBoard.decode("images/Lotus_Board.png");
 	GameData()->SetBoardBackground(&(GameData()->LotusBoard));
@@ -148,6 +147,7 @@ static void InitGame()
 	// Game has now finished loading
 	GameData()->gLoaded = 1;
 	GameData()->gRunning = 1;
+	GameData()->SceneState = SCENE_SELECT_PLAYER_NUM;
 	printf("Game Loaded");
 }
 
@@ -170,7 +170,7 @@ static void GameLoop()
 		case SCENE_RESULTS:
 			GameResults();
 			break;
-
+		
 		default:
 			break; // do nothing
 	}
@@ -207,10 +207,9 @@ static void MouseCallback(int button, int state, int x, int y)
 // The main rendering function; it draws everything
 static void RenderCallback()
 {
-	if (!GameData()->gRunning) return; //don't draw anything (should be shutting down)
-	printf("Step");
-	GameLoop();	
-	printf("Step");
+	if (!GameData()->gRunning)
+		return;
+	
 	// Clear Buffers
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	
@@ -230,36 +229,34 @@ static void RenderCallback()
 	float transy = (float)(glutGet(GLUT_WINDOW_HEIGHT)-WINDOW_SIZEY)/2;
 	glTranslatef(transx, -transy, 0);
 
-	// Rendering code...
-	if (!GameData()->gLoaded)
-		RenderLoading();
-	else
-	{
-		switch (GameData()->SceneState)
-		{	
-			case SCENE_SELECT_PLAYER_NUM:
-				RenderSelectPlayerNum();
-				break;
-			case SCENE_SELECT_PLAYERS:
-				RenderSelectPlayers();
-				break;
+	GameLoop();
+	switch (GameData()->SceneState)
+	{	
+		case SCENE_SELECT_PLAYER_NUM:
+			RenderSelectPlayerNum();
+			break;
+		case SCENE_SELECT_PLAYERS:
+			RenderSelectPlayers();
+			break;
 
-			case SCENE_MAINBOARD:
-				RenderMainBoard();
-				break;
+		case SCENE_MAINBOARD:
+			RenderMainBoard();
+			break;
 
-			case SCENE_RESULTS:
-				RenderResults();
-				break;
+		case SCENE_RESULTS:
+			RenderResults();
+			break;
 
-			default:
-				RenderLoading();
-				break; //assume we are busy loading...
-		}
+		default:
+			GameData()->LoadingImage.decode("images/loading.png");
+			RenderLoading();
+			break; //assume we are busy loading...
 	}
 
 	// Swap buffers and draw the frame
 	glutSwapBuffers();
+	if (!GameData()->gLoaded)
+		InitGame();
 }
 
 #pragma endregion
@@ -315,7 +312,6 @@ int main(int argc, char** argv)
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glEnable(GL_LIGHT0);
 
-	InitGame();
 	glutMainLoop();
 
 	return 0;

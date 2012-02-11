@@ -121,7 +121,6 @@ void PerformHumanTurn(Player &player)
 	
 	Point2i mousepos = GameData()->GetLastClick();
 	GameData()->ResetLastClick();
-	printf("position1 %d position2 %d\n", position1, position2);
 	if(position1 == -100)
 	{
 		if (GameData()->board.GetLocationFromXY(mousepos.x, mousepos.y, position1))
