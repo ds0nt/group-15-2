@@ -4,21 +4,8 @@
 
 void GameSelectPlayerNum()
 {
-<<<<<<< HEAD
-	// Create four players in memory, even though they may not be used !?!?!?
-	for (int i = 0; i < 4; i++)
-		GameData()->CreatePlayer();
-
-	GameData()->players.at(0).piece = PIECE_P1;
-	GameData()->players.at(1).piece = PIECE_P2;
-	GameData()->players.at(2).piece = PIECE_P3;
-	GameData()->players.at(3).piece = PIECE_P4;
-
-	// Get number of players
-=======
 	// Reset click
 	Point2i mousepos;
->>>>>>> a6718d6a75db56caefefa294c788b9457dfc31d6
 	GameData()->numplayers = 0;
 	mousepos = GameData()->GetLastClick();
 	if (mousepos.x >= 165 && mousepos.x <= 181 && mousepos.y >= 376 && mousepos.y <= 400)
