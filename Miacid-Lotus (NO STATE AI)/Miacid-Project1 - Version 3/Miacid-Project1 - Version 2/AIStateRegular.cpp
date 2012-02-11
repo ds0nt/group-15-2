@@ -14,7 +14,7 @@ AIStateRegular::~AIStateRegular(void)
 void AIStateRegular::doTurn(Player p)
 {
 	printf("Great Success!\n");
-	this->stateMachine->setState(ST_REGULAR);
+	this->stateMachine->setState(ST_ANGRY);
 }
 
 void AIStateRegular::onBoardChange()
