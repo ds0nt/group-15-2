@@ -7,6 +7,10 @@ AIStateRegular::AIStateRegular(StateStrategy* stateMachine)
 	emotion = 0;
 }
 
+//This is the Regular State
+//
+//
+
 AIStateRegular::~AIStateRegular(void)
 {
 
@@ -239,12 +243,26 @@ void AIStateRegular::doTurn(Player player)
 		break;
 	}
 	
-
-	//this->stateMachine->setState(ST_ANGRY);
+	
 }
 
 void AIStateRegular::onBoardChange()
 {
+	if(GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, MAX_GAME_POSITIONS-1))
+	{
+		this->stateMachine->setState(ST_RUSH_TO_END);
+		return;
+	}
+	if(GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, MAX_GAME_POSITIONS-2))
+	{	
+		this->stateMachine->setState(ST_RUSH_TO_END);
+		return;
+	}
+	if(GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, MAX_GAME_POSITIONS-3))
+	{	
+		this->stateMachine->setState(ST_RUSH_TO_END);
+		return;
+	}
 	printf("Board Update while AI is in REGULAR STATE!!!!\n");
 	emotion++;
 	cout<<emotion<<endl;

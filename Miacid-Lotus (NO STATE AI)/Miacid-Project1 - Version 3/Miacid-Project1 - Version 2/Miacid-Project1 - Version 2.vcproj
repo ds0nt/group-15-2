@@ -312,6 +312,14 @@
 					RelativePath=".\AIStateRegular.h"
 					>
 				</File>
+				<File
+					RelativePath=".\AIStateRushToEnd.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateRushToEnd.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>
