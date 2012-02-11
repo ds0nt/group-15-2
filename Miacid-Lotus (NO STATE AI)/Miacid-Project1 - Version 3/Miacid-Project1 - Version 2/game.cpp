@@ -5,7 +5,7 @@
 
 void GameSelectPlayers()
 {
-	// Create four players in memory, even though they may not be used
+	// Create four players in memory, even though they may not be used !?!?!?
 	for (int i = 0; i < 4; i++)
 		GameData()->CreatePlayer();
 

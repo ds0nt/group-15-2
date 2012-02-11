@@ -7,7 +7,7 @@ void RuleStrategy::onBoardChange()
 
 void RuleStrategy::doTurn(Player player)
 {
-		// Create a vector of rules that are of interest
+	// Create a vector of rules that are of interest
 	vector<TRule*> valid;
 	TRule * curRule;
 
@@ -24,7 +24,7 @@ void RuleStrategy::doTurn(Player player)
 			valid.push_back(&(GameData()->Rules.at(i)));
 	}
 
-	// Decide which rule to use based on the valid list and given weights
+	// Decide which rule to use based on the valid list and given weights????
 	int ruleToFire = -1;
 	int topWeight = 0;
 	int highest = 0;
