@@ -13,6 +13,9 @@ void StateStrategy::setState(STATETYPE newState)
 	case ST_REGULAR:
 		this->currentState = new AIStateRegular(this);
 		break;
+	case ST_ANGRY:
+		this->currentState = new AIStateAngry(this);
+		break;
 	}
 }
 

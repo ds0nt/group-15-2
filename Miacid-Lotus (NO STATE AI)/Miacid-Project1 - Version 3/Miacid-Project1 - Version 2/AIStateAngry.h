@@ -3,15 +3,16 @@
 #include "AIState.h"
 #include "foundation.h"
 class StateStrategy;
-class AIStateRegular :
+class AIStateAngry :
 	public AIState
 {
 private:
 	int emotion;
 public:
+	int numberOfTurns;
 	StateStrategy* stateMachine;
-	AIStateRegular(StateStrategy* stateMachine);
-	~AIStateRegular(void);
+	AIStateAngry(StateStrategy* stateMachine);
+	~AIStateAngry(void);
 	void doTurn(Player p);
 	void onBoardChange();
 	//void setEmotion(int);

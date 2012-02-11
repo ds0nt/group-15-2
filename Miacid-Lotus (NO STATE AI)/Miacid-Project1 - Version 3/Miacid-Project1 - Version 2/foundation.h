@@ -29,11 +29,13 @@
 
 
 // Common Function Prototypes (to avoid plentiful .h files)
+void GameSelectPlayerNum();
 void GameSelectPlayers();
 void GameMainBoard();
 void GameResults();
 
 void RenderLoading();
+void RenderSelectPlayerNum();
 void RenderSelectPlayers();
 void RenderMainBoard();
 void RenderResults();

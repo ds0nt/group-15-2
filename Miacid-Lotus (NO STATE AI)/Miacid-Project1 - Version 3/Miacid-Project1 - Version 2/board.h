@@ -20,8 +20,8 @@ class Board
 {
 private:
 	int numplayers; //the number of players
-	stack<PIECE> start[MAX_START_STACKS]; //12 original stack (4, 3, 2, 1 x 2 OR 3, 2, 1 x 4)
-	stack<PIECE> position[MAX_GAME_POSITIONS]; //white, black, red, blue
+	vector<PIECE> start[MAX_START_STACKS]; //12 original stack (4, 3, 2, 1 x 2 OR 3, 2, 1 x 4)
+	vector<PIECE> position[MAX_GAME_POSITIONS]; //white, black, red, blue
 	vector<PIECE> finish; //pieces that are in the finish location
 
 	bool movingpiece; //if we are in the state of moving a piece (used for rendering)
@@ -65,6 +65,7 @@ public:
 	int PlayerPiecesRemaining(PIECE player);
 	int BoardPiecesRemaining();
 
+	void RenderStack(std::vector<PIECE>* tile, Point2f location);
 	void Render();
 };
 

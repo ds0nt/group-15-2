@@ -1,22 +1,22 @@
-#include "AIStateRegular.h"
+#include "AIStateAngry.h"
 
-AIStateRegular::AIStateRegular(StateStrategy* stateMachine)
+AIStateAngry::AIStateAngry(StateStrategy* stateMachine)
 {
 	this->stateMachine = stateMachine;
-	printf("IN NEW STATE REGULAR!\n");
+	//this->stateMachine = 
+	printf("IN NEW STATE ANGRY HAHHAHHAHAHHAHHAHHAHA!\n");
 	emotion = 0;
 }
 
-AIStateRegular::~AIStateRegular(void)
+AIStateAngry::~AIStateAngry(void)
 {
 
 }
 
-void AIStateRegular::doTurn(Player player)
+void AIStateAngry::doTurn(Player player)
 {
-	printf("Great Success!\n");
-	// Find active pieces on the board
-	
+	printf("I made the move there!!! yeSS!!!!!!!!!!!!!!!!!!!! HAHAHHAHAHHAHAH!!!! \n");
+
 	// Create a vector of rules that are of interest
 	vector<TRule*> valid;
 	TRule * curRule;
@@ -238,16 +238,15 @@ void AIStateRegular::doTurn(Player player)
 			moveUseful = 0;
 		break;
 	}
-	
-
-	//this->stateMachine->setState(ST_ANGRY);
+	//this->stateMachine->setState(ST_REGULAR);
 }
 
-void AIStateRegular::onBoardChange()
+void AIStateAngry::onBoardChange()
 {
-	printf("Board Update while AI is in REGULAR STATE!!!!\n");
+	printf("target AI got the Board Update I GOT THE UPDATE !!!!\n");
+	//if AI got attack!!?!? 
 	emotion++;
-	cout<<emotion<<endl;
-	if (emotion >= 3)
-		this->stateMachine->setState(ST_ANGRY);
+	if(emotion >=5)
+		this->stateMachine->setState(ST_REGULAR);
+	
 }

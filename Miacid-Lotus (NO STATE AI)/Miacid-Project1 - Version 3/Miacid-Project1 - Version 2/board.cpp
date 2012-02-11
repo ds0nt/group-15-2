@@ -25,13 +25,13 @@ bool Board::CreateBoard(int players)
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4-i; j++)
-				this->start[i].push(PIECE_P1);
+				this->start[i].push_back(PIECE_P1);
 		}
 
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4-i; j++)
-				this->start[4+i].push(PIECE_P2);
+				this->start[4+i].push_back(PIECE_P2);
 		}
 
 		// Set the number of starting stacks
@@ -43,19 +43,19 @@ bool Board::CreateBoard(int players)
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[i].push(PIECE_P1);
+				this->start[i].push_back(PIECE_P1);
 		}
 
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[3+i].push(PIECE_P2);
+				this->start[3+i].push_back(PIECE_P2);
 		}
 
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[6+i].push(PIECE_P3);
+				this->start[6+i].push_back(PIECE_P3);
 		}
 
 		// Set the number of starting stacks
@@ -67,25 +67,25 @@ bool Board::CreateBoard(int players)
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[i].push(PIECE_P1);
+				this->start[i].push_back(PIECE_P1);
 		}
 
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[3+i].push(PIECE_P2);
+				this->start[3+i].push_back(PIECE_P2);
 		}
 
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[6+i].push(PIECE_P3);
+				this->start[6+i].push_back(PIECE_P3);
 		}
 
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3-i; j++)
-				this->start[9+i].push(PIECE_P4);
+				this->start[9+i].push_back(PIECE_P4);
 		}
 
 		// Set the number of starting stacks
@@ -224,7 +224,7 @@ PIECE Board::GetTopPiece(int pos)
 		if (this->start[pos].empty())
 			return PIECE_BAD;
 
-		return this->start[pos].top();
+		return this->start[pos].back();
 	}
 
 	//Finish stack (just for robustness of code)
@@ -240,7 +240,7 @@ PIECE Board::GetTopPiece(int pos)
 	if (this->position[pos].empty())
 		return PIECE_BAD;
 
-	return this->position[pos].top();
+	return this->position[pos].back();
 }
 
 //Check if the top piece on a stack is the same as another piece
@@ -337,8 +337,8 @@ bool Board::MovePiece(int begin, int end = -1)
 		if (this->start[sbegin].size() == (unsigned)distance)
 		{
 			// Size is okay. Perform the move.
-			this->position[end].push(this->start[sbegin].top());
-			this->start[sbegin].pop();
+			this->position[end].push_back(this->start[sbegin].back());
+			this->start[sbegin].pop_back();
 
 			// Append last move
 			GameData()->RecordMove(TM_START);
@@ -389,11 +389,11 @@ bool Board::MovePiece(int begin, int end = -1)
 				printf("moving piece from %i to %i over distance %i\n", begin, end, distance*2);
 					
 				if (end == MAX_GAME_POSITIONS)
-					this->finish.push_back(this->position[begin].top());
+					this->finish.push_back(this->position[begin].back());
 				else
-					this->position[end].push(this->position[begin].top());
+					this->position[end].push_back(this->position[begin].back());
 
-				this->position[begin].pop();
+				this->position[begin].pop_back();
 
 				// Assume you did this just to move forward :|
 				GameData()->RecordMove(TM_FORWARD);
@@ -402,8 +402,8 @@ bool Board::MovePiece(int begin, int end = -1)
 
 			// Size is okay. Perform the move.
 			printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
-			this->position[end].push(this->position[begin].top());
-			this->position[begin].pop();
+			this->position[end].push_back(this->position[begin].back());
+			this->position[begin].pop_back();
 
 			// Check new stack size...
 			if (this->position[end].size() > 2) //significant stack size?
@@ -440,8 +440,8 @@ bool Board::MovePiece(int begin, int end = -1)
 			{
 				// Moving piece to the finish zone
 				printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
-				this->finish.push_back(this->position[begin].top());
-				this->position[begin].pop();
+				this->finish.push_back(this->position[begin].back());
+				this->position[begin].pop_back();
 
 				// You moved forward
 				GameData()->RecordMove(TM_FORWARD);
@@ -473,11 +473,11 @@ bool Board::MovePiece(int begin, int end = -1)
 					printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
 					
 					if (end == MAX_GAME_POSITIONS)
-						this->finish.push_back(this->position[begin].top());
+						this->finish.push_back(this->position[begin].back());
 					else
-						this->position[end].push(this->position[begin].top());
+						this->position[end].push_back(this->position[begin].back());
 
-					this->position[begin].pop();
+					this->position[begin].pop_back();
 
 					// Assume you did this to move forward
 					GameData()->RecordMove(TM_FORWARD);
@@ -487,8 +487,8 @@ bool Board::MovePiece(int begin, int end = -1)
 				{
 					// Normal movement
 					printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
-					this->position[end].push(this->position[begin].top());
-					this->position[begin].pop();
+					this->position[end].push_back(this->position[begin].back());
+					this->position[begin].pop_back();
 
 					// Was this an attack?
 					if (this->position[end].size() > 2) //significant stack size
@@ -571,51 +571,32 @@ int Board::BoardPiecesRemaining()
 }
 
 //Draw the board on the screen
+
+void Board::RenderStack(std::vector<PIECE>* tile, Point2f location)
+{
+	int size = tile->size();
+
+	for (int j = 0; j < size; j++)
+		this->units[tile->at(j)-1]->displayAt(location.x, location.y-j*5, 1);
+	
+	if (size > 1)
+		this->numbers[size-1]->displayAt(location.x, location.y);
+}
 void Board::Render()
 {
+	//Mutex moving = new Mutex();
 	//Draw the background
 	this->background->displayAt(0,0);
 
 	//Draw the starting position pieces
 	for (int i = 0; i < this->numstartstacks; i++)
-	{
-		PIECE spiece = this->GetTopPiece(-i-1);
-
-		if (spiece != PIECE_BAD)
-		{
-			this->units[spiece-1]->displayAt(this->slocations[i].x, this->slocations[i].y, 1);
-
-			int amountatpos = (signed int)this->start[i].size();
-
-			if (amountatpos > 1)
-				this->numbers[amountatpos-1]->displayAt(this->slocations[i].x, this->slocations[i].y);
-		}
-	}
+		this->RenderStack(&this->start[i], this->slocations[i]);
 
 	//Draws regular board location pieces with numbers
 	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
-	{
-		if (this->GetTopPiece(i) != PIECE_BAD)
-		{
-			this->units[this->GetTopPiece(i)-1]->displayAt(this->locations[i].x, this->locations[i].y);
-
-			int amountatpos = (signed int)this->position[i].size();
-
-			if (amountatpos > 1)
-				this->numbers[amountatpos-1]->displayAt(this->locations[i].x, this->locations[i].y);
-		}
-	}
-	
+		this->RenderStack(&this->position[i], this->locations[i]);
 	// Draw finish zone
-	if (this->GetTopPiece(MAX_GAME_POSITIONS) != PIECE_BAD)
-	{
-		this->units[this->GetTopPiece(MAX_GAME_POSITIONS)-1]->displayAt(this->locations[MAX_GAME_POSITIONS].x, this->locations[MAX_GAME_POSITIONS].y);
-
-		int amountatpos = (signed int)this->finish.size();
-
-		if (amountatpos > 1)
-			this->numbers[amountatpos-1]->displayAt(this->locations[MAX_GAME_POSITIONS].x, this->locations[MAX_GAME_POSITIONS].y);
-	}
+	this->RenderStack(&this->finish, this->locations[MAX_GAME_POSITIONS]);
 }
 
 // Attempt to return a location on the board given a click
@@ -644,7 +625,7 @@ bool Board::GetLocationFromXY(int x, int y, int &result)
 	}
 
 	// Assume failure
-	result = 0;
+	result = -100;
 	return 0;
 }
 

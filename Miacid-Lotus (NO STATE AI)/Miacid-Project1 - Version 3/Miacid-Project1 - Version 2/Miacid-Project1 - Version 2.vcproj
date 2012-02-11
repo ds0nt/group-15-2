@@ -218,10 +218,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\human.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\player.cpp"
 				>
 			</File>
@@ -298,6 +294,14 @@
 				>
 				<File
 					RelativePath=".\AIState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateAngry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateAngry.h"
 					>
 				</File>
 				<File
