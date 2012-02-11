@@ -1,12 +1,14 @@
 #pragma once
+#include "StateStrategy.h"
 #include "AIState.h"
 #include "foundation.h"
-
+class StateStrategy;
 class AIStateRegular :
 	public AIState
 {
 public:
-	AIStateRegular(void);
+	StateStrategy* stateMachine;
+	AIStateRegular(StateStrategy* stateMachine);
 	~AIStateRegular(void);
 	void doTurn(Player p);
 	void onBoardChange();
