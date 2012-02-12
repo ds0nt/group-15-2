@@ -21,9 +21,14 @@ struct move {
 		beginpos = a; 
 		endpos = b;
 	}
+	bool isNull()
+	{
+		return this->endpos == -1 && this->beginpos == -1;
+	}
 	int beginpos;
 	int endpos;
 };
+#define MOVE_NULL move(-1, -1)
 class Board
 {
 private:

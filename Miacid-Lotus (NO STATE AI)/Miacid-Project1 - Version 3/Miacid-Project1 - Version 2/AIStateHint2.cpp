@@ -2,7 +2,7 @@
 AIStateHint2::AIStateHint2(StateStrategy* stateMachine)
 {
 	this->stateMachine = stateMachine;
-	printf("Changing to State2\n");
+	printf("Changing to State2 -- Use Trampoline\n");
 }
 
 //This is the Regular State
@@ -19,42 +19,48 @@ AIStateHint2::~AIStateHint2(void)
 
 void AIStateHint2::doTurn(Player player)
 {	
-	vector<move> moves = GameData()->board.getPossibleMoves(player.piece);
-	vector<move> goodmoves = vector<move>();
 	
-	//get good moves
-	for (int i = 0; i < moves.size(); i++)
+	Sleep(1000);
+	move m = boardCalc::getMoveBigBounce(player.piece);
+	
+	if(!m.isNull())
+		GameData()->board.MovePiece(m.beginpos, m.endpos);
+	
+	//great success -> now keep going or make a high stack, or go back to normal
+
+	if(boardCalc::getMoveBigBounce(player.piece).isNull())
 	{
-		move m = moves.at(i);
-		if(m.endpos == 10) //land on trampoline
+		if(boardCalc::getMoveStackHighest(player.piece).isNull())
 		{
-			if(m.endpos - m.beginpos >= 4) //distance of 4 or more
-				goodmoves.push_back(m);
+			//regular move
+			this->stateMachine->setState(ST_HINT_7);
+		}
+		else
+		{
+			//Make high stack
+			this->stateMachine->setState(ST_HINT_4);
 		}
 	}
-
-	//do closest to trampoline
-	//orders from do end to begin.
-	for (int i = goodmoves.size() - 1; i >= 0; i--)
-	{
-
-		GameData()->board.MovePiece(goodmoves.at(i).beginpos, goodmoves.at(i).endpos);
-		
-		this->stateMachine->setState(ST_HINT_1);
-		return;
-	}
-	
-	
-	//Default To Move Random Stuffs!
-	if(moves.size() > 0)
-	{
-		int i = GameData()->randInt(0, moves.size()-1);
-		GameData()->board.MovePiece(moves.at(i).beginpos, moves.at(i).endpos);
-	}
-
-	//Otherwise skip turn
+	//otherwise keep up the spree
 }
 
+//Cannot Bounce && Cannot Set Bounce -> State 7
+//Cannot Bounce && Can Set Bounce -> State 3
+//Can Still Big Bounce -> Dont Change
 void AIStateHint2::onBoardChange()
 {
+	PIECE p = this->stateMachine->player->piece;
+	
+	if(boardCalc::getMoveBigBounce(p).isNull())
+	{
+		if(boardCalc::getMoveSetBounce(p).isNull())
+		{
+			//cant set, cant bounce, go to standard move
+			this->stateMachine->setState(ST_HINT_7);
+		}
+		//can set, go to set state
+		this->stateMachine->setState(ST_HINT_3);
+		return;
+	}
+	//stay in current state if we can still do big bounce.
 }

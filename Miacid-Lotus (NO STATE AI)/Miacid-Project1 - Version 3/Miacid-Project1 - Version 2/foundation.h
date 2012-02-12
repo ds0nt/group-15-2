@@ -26,6 +26,7 @@
 #include "board.h"
 #include "boardfunc.h"
 #include "gamedata.h"
+#include "boardCalc.h"
 
 
 // Common Function Prototypes (to avoid plentiful .h files)
