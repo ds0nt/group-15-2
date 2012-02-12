@@ -23,6 +23,10 @@ void StateStrategy::setState(STATETYPE newState)
 	case ST_VENGEFUL:
 		this->currentState = new AIStateVengeful(this);
 		break;
+	case ST_ADVST:
+		this->currentState = new AIStateAdvST(this);
+		break;	
+
 	}
 }
 
