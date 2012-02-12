@@ -15,16 +15,16 @@ AIStateHint1::~AIStateHint1(void)
 }
 
 //Race Our Pieces near the end to the exit!
-
 void AIStateHint1::doTurn(Player player)
-{	
-	Sleep(1000);
+{
 	move m = boardCalc::getMoveToEnd(player.piece);
 	
 	if(!m.isNull())
 		GameData()->board.MovePiece(m.beginpos, m.endpos);
 }
 
+//Cannot Move ->  State 6
+//Cannot Move To End -> State 7
 void AIStateHint1::onBoardChange()
 {
 	PIECE p = this->stateMachine->player->piece;

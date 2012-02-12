@@ -99,7 +99,7 @@ void GameMainBoard()
 		PerformHumanTurn(*p);
 	else
 	{
-		Sleep(100);
+		Sleep(500);
 		p->strategy->doTurn(*p);
 		GameData()->NextPlayer();
 		BoardChangeNotify();

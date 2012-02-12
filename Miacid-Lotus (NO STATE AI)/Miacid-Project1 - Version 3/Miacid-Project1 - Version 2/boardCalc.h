@@ -10,6 +10,8 @@ public:
 	static move getMoveStackHighest(PIECE p);
 	static int getTallestStackSize(PIECE p);
 	static move getRandomMove(PIECE p);
+	static move getFarthestMove(PIECE p);
 	static bool canMove(PIECE p);
 	static move getMoveUncoverDeepest(PIECE p);
+	
 };
