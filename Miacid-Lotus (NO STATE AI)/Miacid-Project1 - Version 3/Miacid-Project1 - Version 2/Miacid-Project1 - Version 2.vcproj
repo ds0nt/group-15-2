@@ -320,6 +320,14 @@
 					RelativePath=".\AIStateRushToEnd.h"
 					>
 				</File>
+				<File
+					RelativePath=".\AIStateVengeful.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateVengeful.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

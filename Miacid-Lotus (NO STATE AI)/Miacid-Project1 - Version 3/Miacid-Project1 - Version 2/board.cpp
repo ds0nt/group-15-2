@@ -284,6 +284,33 @@ int Board::GetSizeOfStack(int pos)
 }
 
 // Move a piece...
+
+
+vector<move> Board::getPossibleMoves(PIECE player)
+{
+	vector<move> moves = vector<move>();
+
+	for(int i = -MAX_START_STACKS; i < MAX_GAME_POSITIONS; i++)
+	{
+		if(this->GetTopPiece(i) == player)
+		{
+			if(i < 0)
+			{
+				int dist = this->GetSizeOfStack(i);
+				moves.push_back(move(i, dist-1));
+				moves.push_back(move(i, dist+2));
+			}
+			else
+			{
+				int dist = this->GetSizeOfStack(i);
+				moves.push_back(move(i, i+dist));
+			}
+		}
+	}
+
+	return moves;
+}
+
 bool Board::MovePiece(int begin, int end = -1)
 {
 	// Are the start and end points valid?
@@ -574,7 +601,7 @@ int Board::BoardPiecesRemaining()
 
 void Board::RenderStack(std::vector<PIECE>* tile, Point2f location)
 {
-	int size = tile->size();
+	int size = (int)tile->size();
 
 	for (int j = 0; j < size; j++)
 		this->units[tile->at(j)-1]->displayAt(location.x, location.y-j*5, 1);

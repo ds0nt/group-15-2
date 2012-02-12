@@ -20,6 +20,9 @@ void StateStrategy::setState(STATETYPE newState)
 	case ST_RUSH_TO_END:
 		this->currentState = new AIStateRushToEnd(this);
 		break;
+	case ST_VENGEFUL:
+		this->currentState = new AIStateVengeful(this);
+		break;
 	}
 }
 

@@ -4,10 +4,11 @@
 #include "AIStateRegular.h"
 #include "AIStateAngry.h"
 #include "AIStateRushToEnd.h"
+#include "AIStateVengeful.h"
 #include "AIStrategy.h"
 #include "foundation.h"
 
-enum STATETYPE {ST_REGULAR, ST_ANGRY, ST_RUSH_TO_END};
+enum STATETYPE {ST_REGULAR, ST_ANGRY, ST_RUSH_TO_END, ST_VENGEFUL};
 
 class StateStrategy : public AIStrategy
 {
