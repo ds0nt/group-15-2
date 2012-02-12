@@ -18,29 +18,27 @@ AIStateAdvST::~AIStateAdvST(void)
 
 void AIStateAdvST::doTurn(Player player)
 {
-	vector<int> possibleActiveMoves;
-	
-	/*for (int i = 0; i < MAX_GAME_POSITIONS; i++)
+	printf("doing advst move\n");
+	Sleep(1000);
+	vector<move> moves = GameData()->board.getPossibleMoves(player.piece);
+	for (int i = 0; i < moves.size(); i++)
 	{
-		if (GameData() -> board.IsPieceOnTop(player.piece, i));
-			possibleActiveMoves.push_back(i);
-	}*/
-
-	if (GameData()->board.GetSizeOfStack(possibleActiveMoves.at(7) == 3))
-	{
-		printf("#####Weeeee~~#####\n");
-		GameData()->board.MovePiece(3,-1);
+		if(moves.at(i).endpos == 10) // if lands on trampoline
+			if(moves.at(i).beginpos >= 6 && moves.at(i).beginpos <= 8) // if lands on trampoline
+			{
+				GameData()->board.MovePiece(moves.at(i).beginpos, moves.at(i).endpos);
+				return;
+			}
 	}
-	else if (GameData()->board.GetSizeOfStack(possibleActiveMoves.at(6) == 4))
+	for (int i = 0; i < moves.size(); i++)
 	{
-		printf("#####Weeeee~~#####\n");
-		GameData()->board.MovePiece(4,-1);
+		GameData()->board.MovePiece(moves.at(i).beginpos, moves.at(i).endpos);
+		return;
 	}
-
 }
 
 void AIStateAdvST::onBoardChange()
 {
 	printf("AI just loves Springtile...!!! -_-\n");	
-	//this->stateMachine->setState(ST_REGULAR);
+	this->stateMachine->setState(ST_REGULAR);
 }
