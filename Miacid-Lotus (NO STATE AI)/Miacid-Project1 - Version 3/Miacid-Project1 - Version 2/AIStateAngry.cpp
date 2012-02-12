@@ -6,6 +6,8 @@ AIStateAngry::AIStateAngry(StateStrategy* stateMachine)
 	//this->stateMachine = 
 	printf("IN NEW STATE ANGRY HAHHAHHAHAHHAHHAHHAHA!\n");
 	emotion = 0;
+	numberOfTurns = 0;
+	ableToMovePiece = 0;
 }
 
 AIStateAngry::~AIStateAngry(void)
@@ -15,8 +17,9 @@ AIStateAngry::~AIStateAngry(void)
 
 void AIStateAngry::doTurn(Player player)
 {
+	
 	printf("I made the move there!!! yeSS!!!!!!!!!!!!!!!!!!!! HAHAHHAHAHHAHAH!!!! \n");
-
+	numberOfTurns++;
 	// Create a vector of rules that are of interest
 	vector<TRule*> valid;
 	TRule * curRule;
@@ -80,6 +83,11 @@ void AIStateAngry::doTurn(Player player)
 			possibleStartMoves.push_back(i);
 	}
 
+
+
+
+
+	/*
 	if (possibleActiveMoves.empty())
 	{
 		switch (useMove)
@@ -110,7 +118,7 @@ void AIStateAngry::doTurn(Player player)
 			// Useful if there is a large stack to jump on
 
 			// Find a large stack that can be jumped on
-			highest = -1; // reset
+			/*highest = -1; // reset
 			for (int i = 0; i < (signed)possibleActiveMoves.size(); i++)
 			{
 				// Get numbers
@@ -133,9 +141,16 @@ void AIStateAngry::doTurn(Player player)
 
 			if (highest < 2) // small stack -> not very useful
 				moveUseful = 0;
+		
+			for (int i = 0; i < (signed)possibleActiveMoves.size(); i++)
+			{
+				PIECE target;
 
-		break;
-
+				target = GameData()->board.GetTopPiece(possibleActiveMoves.at(i)); //size of current stack	
+				cout<<"aksjdhflaskdjf;kl"<<endl;
+			}
+			break;
+		
 		case TM_FORWARD:
 			// Move a piece forward by the stack size
 			// Useful if the lap was significant
@@ -238,15 +253,62 @@ void AIStateAngry::doTurn(Player player)
 			moveUseful = 0;
 		break;
 	}
-	//this->stateMachine->setState(ST_REGULAR);
+
+
+
+	//this->stateMachine->setState(ST_REGULAR);*/
+
+	for (int i = 0; i < (signed)possibleActiveMoves.size(); i++)
+	{
+		PIECE target;
+		distance = GameData()->board.GetSizeOfStack(possibleActiveMoves.at(i)); //size of current stack
+		potend = possibleActiveMoves.at(i) + distance;
+		target = GameData()->board.GetTopPiece(potend); //size of current stack	
+
+		//cout<<target<<endl;
+	}
+	Sleep(500);
+	//break;
 }
 
 void AIStateAngry::onBoardChange()
 {
-	printf("target AI got the Board Update I GOT THE UPDATE !!!!\n");
+	printf("target AI got the Board Update I GOT THE UPDATE !!!! AND I'm ANGRY!!!!!!!!!!!!!\n");
 	//if AI got attack!!?!? 
-	emotion++;
-	if(emotion >=5)
+	vector<int> possibleStartMoves;
+	for (int i = -1; i >= -GameData()->board.numstartstacks; i--)
+	{
+		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
+		{
+			possibleStartMoves.push_back(i);
+		}
+	}
+
+	
+	vector<int> possibleActiveMoves;
+	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
+	{
+		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
+		{
+
+			possibleActiveMoves.push_back(i);
+		}
+	}
+	//if (!(possibleStartMoves.empty()))
+	//	ableToMovePiece++;
+	if (possibleActiveMoves.size() <= ableToMovePiece)
+		emotion++;
+	//else
+	//	emotion--;
+	
+
+	cout<<emotion<<endl;
+	cout<<possibleActiveMoves.size()<<endl;
+	cout<<numberOfTurns<<endl;
+	//cout<<typeid(this).name()<<endl;
+	//if (emotion == 1)
+	//	this->stateMachine->setState(ST_VENGEFUL);
+	if (numberOfTurns > 1000)
 		this->stateMachine->setState(ST_REGULAR);
 	
 }

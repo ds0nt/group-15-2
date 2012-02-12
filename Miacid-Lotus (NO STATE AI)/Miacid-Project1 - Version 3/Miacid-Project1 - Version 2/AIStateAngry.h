@@ -8,8 +8,9 @@ class AIStateAngry :
 {
 private:
 	int emotion;
-public:
 	int numberOfTurns;
+	int ableToMovePiece;
+public:
 	StateStrategy* stateMachine;
 	AIStateAngry(StateStrategy* stateMachine);
 	~AIStateAngry(void);

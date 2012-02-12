@@ -287,24 +287,36 @@ void AIStateRegular::onBoardChange()
 
 	printf("Board Update while AI is in REGULAR STATE!!!!\n");
 	//if i got attack!
-
-	vector<int> possibleActiveMoves;
-/*	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
+	
+	vector<int> possibleStartMoves;
+	for (int i = -1; i >= -GameData()->board.numstartstacks; i--)
 	{
-		if (GameData()->board.IsPieceOnTop(thisPlayer.piece, i))
+		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
+		{
+			possibleStartMoves.push_back(i);
+		}
+	}
+
+	
+	vector<int> possibleActiveMoves;
+	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
+	{
+		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
 		{
 
 			possibleActiveMoves.push_back(i);
 		}
 	}
-*/
-	if (possibleActiveMoves.size() < ableToMovePiece)
+	//if (!(possibleStartMoves.empty()))
+	//	ableToMovePiece++;
+	if (possibleActiveMoves.size() <= ableToMovePiece)
 		emotion++;
+	
 
 	cout<<emotion<<endl;
 	cout<<possibleActiveMoves.size()<<endl;
 	cout<<ableToMovePiece<<endl;
-	cout<<typeid(this).name()<<endl;
-	if (emotion >= 3)
+	//cout<<typeid(this).name()<<endl;
+	if (emotion >= 4)
 		this->stateMachine->setState(ST_ANGRY);
 }
