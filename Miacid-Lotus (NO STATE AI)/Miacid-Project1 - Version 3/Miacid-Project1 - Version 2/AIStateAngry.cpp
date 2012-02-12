@@ -87,7 +87,7 @@ void AIStateAngry::doTurn(Player player)
 
 
 
-	
+	/*	
 	if (possibleActiveMoves.empty())
 	{
 		switch (useMove)
@@ -111,7 +111,7 @@ void AIStateAngry::doTurn(Player player)
 		}
 	}
 	// Actually perform the selected move
-
+	*/
 	int attacking = 1;
 	//switch (useMove)
 	//{
@@ -163,8 +163,11 @@ void AIStateAngry::doTurn(Player player)
 					for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
 					{
 						if(target == possibleActiveMoves.at(j))
+						{
 							cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
 							//cout<<target<<endl;
+							Sleep(1000);
+						}
 						else
 						{
 							cout<<"\nSOMEONE ELSES!\n"<<endl;
@@ -174,7 +177,7 @@ void AIStateAngry::doTurn(Player player)
 					}
 					if(goingToAttack == 1)
 					{
-						cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+						cout<<"ATTACKING FROM THE ACTIVE PIECES"<<endl;
 						GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
 						attacking = 0;
 						Sleep(4000);
@@ -190,18 +193,21 @@ void AIStateAngry::doTurn(Player player)
 					for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
 					{
 						if(target == possibleActiveMoves.at(j))
-							cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+						{
+							cout<<"\nLEFT WAY ITS MINE!!!!!\n"<<endl;
+							Sleep(1000);
+						}
 							//cout<<target<<endl;
 						else
 						{
-							cout<<"\nSOMEONE ELSES!\n"<<endl;
+							cout<<"\nSOMEONE ELSES ON LEFT!\n"<<endl;
 							goingToAttack++;
 							break;
 						}
 					}
 					if(goingToAttack == 1)
 					{
-						cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+						cout<<"ATTACKING FROM THE STARTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT to left!!"<<endl;
 						GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
 						attacking = 0;
 						Sleep(4000);
@@ -214,18 +220,21 @@ void AIStateAngry::doTurn(Player player)
 						for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
 						{
 							if(target == possibleActiveMoves.at(j))
-								cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+							{
+								cout<<"\nRIGHT WAY;s stuff is MINE!!!!!!!\n"<<endl;
+								Sleep(1000);
+							}
 								//cout<<target<<endl;
 							else
 							{
-								cout<<"\nSOMEONE ELSES!\n"<<endl;
+								cout<<"\nSOMEONE ELSES on RIGHT WAY!\n"<<endl;
 								goingToAttack++;
 								break;
 							}
 						}
 						if(goingToAttack == 1)
 						{
-							cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+							cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK RIGHTfrom START!!!!!!!!!!!!!"<<endl;
 							GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
 							attacking = 0;
 							Sleep(4000);
@@ -237,6 +246,7 @@ void AIStateAngry::doTurn(Player player)
 					cout<<"nothing to attack!!"<<endl;
 			
 		//break;
+				/*
 		if(attacking == 1)
 		switch(useMove)
 		{
@@ -443,8 +453,9 @@ void AIStateAngry::doTurn(Player player)
 	//this->stateMachine->setState(ST_REGULAR);
 
 	
-	//break;
-}}
+	//break;*/
+}
+}
 
 void AIStateAngry::onBoardChange()
 {

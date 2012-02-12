@@ -25,7 +25,6 @@ void AIStateRegular::doTurn(Player player)
 	vector<int> possibleStartMoves;
 //	thisPlayer = player;
 	//possibleActiveMove = new vector<int>;
-{	
 	
 	printf("Great Success!\n");
 	// Find active pieces on the board
@@ -318,10 +317,10 @@ void AIStateRegular::onBoardChange()
 	cout<<possibleActiveMoves.size()<<endl;
 	cout<<ableToMovePiece<<endl;
 	//cout<<typeid(this).name()<<endl;
-	if (emotion >= 4)
+	if (emotion > 1)
 		this->stateMachine->setState(ST_ANGRY);
 
-	if(emotion > 1)
-		this->stateMachine->setState(ST_VENGEFUL);
+	//if(emotion > 1)
+	//	this->stateMachine->setState(ST_VENGEFUL);
 	
 }
