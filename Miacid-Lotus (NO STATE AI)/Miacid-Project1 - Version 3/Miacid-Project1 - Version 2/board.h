@@ -15,7 +15,15 @@ using namespace std;
 #define PCS_PER_PLAYER_2 10
 #define PCS_PER_PLAYER_3OR4 6
 #define LOTUS_TRAMPOLINE 10 //the id is 10, actual piece is 11 by the document given
-
+struct move {
+	move(int a, int b)
+	{
+		beginpos = a; 
+		endpos = b;
+	}
+	int beginpos;
+	int endpos;
+};
 class Board
 {
 private:
@@ -58,6 +66,7 @@ public:
 
 	bool MovePiece(int begin, int end);
 	bool PossibleMove(PIECE player);
+	vector<move> getPossibleMoves(PIECE player);
 	bool PlayerHasWon(PIECE player);
 	int IsLocGood(int x1, int y1);
 

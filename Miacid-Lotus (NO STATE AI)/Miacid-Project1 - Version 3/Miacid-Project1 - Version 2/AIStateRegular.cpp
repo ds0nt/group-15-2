@@ -3,6 +3,7 @@
 AIStateRegular::AIStateRegular(StateStrategy* stateMachine)
 {
 	this->stateMachine = stateMachine;
+
 	printf("IN NEW STATE REGULAR!\n");
 	emotion = 0;
 }
@@ -17,7 +18,8 @@ AIStateRegular::~AIStateRegular(void)
 }
 
 void AIStateRegular::doTurn(Player player)
-{
+{	
+	
 	printf("Great Success!\n");
 	// Find active pieces on the board
 	
@@ -268,4 +270,8 @@ void AIStateRegular::onBoardChange()
 	cout<<emotion<<endl;
 	if (emotion >= 3)
 		this->stateMachine->setState(ST_ANGRY);
+
+	if(emotion > 1)
+		this->stateMachine->setState(ST_VENGEFUL);
+	
 }
