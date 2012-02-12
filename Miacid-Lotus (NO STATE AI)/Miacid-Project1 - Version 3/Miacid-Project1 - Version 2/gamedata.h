@@ -30,6 +30,8 @@ public:
 	PNG LotusHuman;
 	PNG LotusFinished;
 	PNG LotusNotPlaying;
+	PNG LotusSelect;
+	int selectedpos;
 	//
 
 	bool gLoaded;
