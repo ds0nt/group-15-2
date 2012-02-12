@@ -15,7 +15,7 @@ GD::GD()
 	// Game has not yet loaded.
 	this->gLoaded = 0;
 	this->gRunning = 1;
-
+	this->selectedpos = -100;
 	// Append default moves
 	this->Moves.push_back(TM_NONE);
 	this->Moves.push_back(TM_NONE);
