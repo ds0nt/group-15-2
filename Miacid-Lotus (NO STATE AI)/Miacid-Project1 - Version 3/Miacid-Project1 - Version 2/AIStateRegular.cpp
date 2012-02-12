@@ -107,12 +107,15 @@ void AIStateRegular::onBoardChange()
 		return;
 	}
 
-	printf("Board Update while AI is in REGULAR STATE!!!!\n");
-	//if i got attack!
+	printf("\nBoard Update while AI is in REGULAR STATE!!!!\n");
 	
 
-	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);//getting all possible moves.
+	//testing
+	this->stateMachine->setState(ST_VENGEFUL);
+	return;
+	//testing
 
+	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);//getting all possible moves.
 	vector<move> noDuplicateMoves;
 
 	for(int i = 0; i < moves.size(); i++)
@@ -123,31 +126,9 @@ void AIStateRegular::onBoardChange()
 			noDuplicateMoves.push_back(moves.at(i));
 	}
 
-	/*
-	vector<int> possibleStartMoves;
-	for (int i = -1; i >= -GameData()->board.numstartstacks; i--)
-	{
-		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
-		{
-			possibleStartMoves.push_back(i);
-		}
-	}
-
-	
-	vector<int> possibleActiveMoves;
-	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
-	{
-		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
-		{
-
-			possibleActiveMoves.push_back(i);
-		}
-	}*/
-	//if (!(possibleStartMoves.empty()))
-	//	ableToMovePiece++;
-	cout<<"emotion: "<<emotion<<endl;
-	cout<<"noDuplicateMoves"<<noDuplicateMoves.size()<<endl;
-	cout<<"ableToMove in Privious turn"<<ableToMovePiece<<endl;
+	cout<<"emotion                     : "<<emotion<<endl;
+	cout<<"noDuplicateMoves            : "<<noDuplicateMoves.size()<<endl;
+	cout<<"ableToMove in Privious turn : "<<ableToMovePiece<<endl;
 	if (noDuplicateMoves.size() < ableToMovePiece)
 	{
 		cout<<"I got attack!?!?!?!>!>!>"<<endl;
@@ -155,16 +136,6 @@ void AIStateRegular::onBoardChange()
 		emotion++;
 	}
 
-	
-	//cout<<typeid(this).name()<<endl;
-	if (emotion > 1000)
+	if (emotion > 2)
 		this->stateMachine->setState(ST_ANGRY);
-//<<<<<<< HEAD
-
-	//if(emotion > 1)
-	//	this->stateMachine->setState(ST_VENGEFUL);
-		//this->stateMachine->setState(ST_VENGEFUL);
-	
-//=======
-//>>>>>>> 09296a16ac7b6afed218216b8206644a547bde31
 }
