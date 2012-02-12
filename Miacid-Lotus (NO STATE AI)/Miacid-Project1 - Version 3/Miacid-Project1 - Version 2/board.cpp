@@ -578,7 +578,6 @@ void Board::RenderStack(std::vector<PIECE>* tile, Point2f location)
 
 	for (int j = 0; j < size; j++)
 		this->units[tile->at(j)-1]->displayAt(location.x, location.y-j*5, 1);
-	
 	if (size > 1)
 		this->numbers[size-1]->displayAt(location.x, location.y);
 }
@@ -597,6 +596,27 @@ void Board::Render()
 		this->RenderStack(&this->position[i], this->locations[i]);
 	// Draw finish zone
 	this->RenderStack(&this->finish, this->locations[MAX_GAME_POSITIONS]);
+
+
+	if (GameData()->selectedpos != -100) 
+	{
+		if(GameData()->selectedpos < 0)
+		{
+			GameData()->LotusSelect.displayAt(
+				this->slocations[-GameData()->selectedpos-1].x, 
+				this->slocations[-GameData()->selectedpos-1].y - this->GetSizeOfStack(GameData()->selectedpos) * 5+4, 
+				1
+			);
+		}
+		else if (GameData()->selectedpos >= 0)
+		{			
+			GameData()->LotusSelect.displayAt(
+				this->locations[GameData()->selectedpos].x,
+				this->locations[GameData()->selectedpos].y - this->GetSizeOfStack(GameData()->selectedpos) * 5+4,
+				1
+			);
+		}
+	}
 }
 
 // Attempt to return a location on the board given a click

@@ -143,6 +143,7 @@ static void InitGame()
 	GameData()->LotusNotPlaying.decode("images/not_playing.png");
 	GameData()->LotusTurn.decode("images/won.png");
 	GameData()->LotusWinner.decode("images/turn.png");
+	GameData()->LotusSelect.decode("images/select_star.png");
 	
 	// Game has now finished loading
 	GameData()->gLoaded = 1;

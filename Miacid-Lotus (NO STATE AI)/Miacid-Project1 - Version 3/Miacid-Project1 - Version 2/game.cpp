@@ -109,7 +109,6 @@ void GameMainBoard()
 		GameData()->SceneState = SCENE_RESULTS;
 }
 
-int position1 = -100;
 int position2 = -100;
 void PerformHumanTurn(Player &player)
 {
@@ -121,37 +120,37 @@ void PerformHumanTurn(Player &player)
 	
 	Point2i mousepos = GameData()->GetLastClick();
 	GameData()->ResetLastClick();
-	if(position1 == -100)
+	if(GameData()->selectedpos == -100)
 	{
-		if (GameData()->board.GetLocationFromXY(mousepos.x, mousepos.y, position1))
+		if (GameData()->board.GetLocationFromXY(mousepos.x, mousepos.y, GameData()->selectedpos))
 		{
-			PIECE testpiece = GameData()->board.GetTopPiece(position1);
+			PIECE testpiece = GameData()->board.GetTopPiece(GameData()->selectedpos);
 			if (testpiece == PIECE_BAD)
-				position1 = -100;
+				GameData()->selectedpos = -100;
 			if (!allCovered)
 				if(testpiece != player.piece)
-					position1 = -100;
+					GameData()->selectedpos = -100;
 		}
 	}
 	else if (position2 == -100)
 	{
 		if (GameData()->board.GetLocationFromXY(mousepos.x, mousepos.y, position2))
 		{
-			if(position2 == position1)
+			if(position2 == GameData()->selectedpos)
 			{
-				position1 = -100;
+				GameData()->selectedpos = -100;
 				position2 = -100;
 			}
 		}
 	}
 	else
 	{
-		if (GameData()->board.MovePiece(position1, position2))
+		if (GameData()->board.MovePiece(GameData()->selectedpos, position2))
 		{
 			GameData()->NextPlayer();
 			BoardChangeNotify();
 		} 
-		position1 = -100;
+		GameData()->selectedpos = -100;
 		position2 = -100;
 	}
 }
