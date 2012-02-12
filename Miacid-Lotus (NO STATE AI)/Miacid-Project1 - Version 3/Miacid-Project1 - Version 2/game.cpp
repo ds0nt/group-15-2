@@ -124,6 +124,7 @@ void PerformHumanTurn(Player &player)
 	{
 		if (GameData()->board.GetLocationFromXY(mousepos.x, mousepos.y, GameData()->selectedpos))
 		{
+			printf("Clicked on Position %d\n", GameData()->selectedpos);
 			PIECE testpiece = GameData()->board.GetTopPiece(GameData()->selectedpos);
 			if (testpiece == PIECE_BAD)
 				GameData()->selectedpos = -100;
