@@ -254,11 +254,11 @@ void AIStateRegular::onBoardChange()
 
 	if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, 6) || GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, 7))
 	{
-		//if (GameData()->board.GetSizeOfStack(6) == 4 || GameData()->board.GetSizeOfStack(7) == 3)
-		//{
+		if (GameData()->board.GetSizeOfStack(6) == 4 || GameData()->board.GetSizeOfStack(7) == 3)
+		{
 		this->stateMachine->setState(ST_ADVST);
-		//}
-		//else
+		}
+		else
 		return;
 	}
 
