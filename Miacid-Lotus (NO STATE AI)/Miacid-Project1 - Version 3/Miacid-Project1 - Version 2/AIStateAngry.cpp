@@ -5,9 +5,25 @@ AIStateAngry::AIStateAngry(StateStrategy* stateMachine)
 	this->stateMachine = stateMachine;
 	//this->stateMachine = 
 	//this->gettinSum = GameData()->players.at(GameData()->currentPlayer).piece;
-	printf("IN NEW STATE ANGRY HAHHAHHAHAHHAHHAHHAHA!\n");
+	printf("\nMy state Changed!!! now i'm ANGRY!!!!!!!!!!!!!\n");
 	emotion = 0;
 	numberOfTurns = 0;
+	
+	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);
+	vector<move> noDuplicateMoves;
+
+	for(int i = 0; i < moves.size(); i++)
+	{
+		if (i == 0)
+			noDuplicateMoves.push_back(moves.at(i));
+		if (!(i == 0) && !(moves.at(i - 1).beginpos == moves.at(i).beginpos))
+			noDuplicateMoves.push_back(moves.at(i));
+	}
+	
+	ableToMovePiece = noDuplicateMoves.size();
+
+	cout<<"current available piece in the initaliizing the angry state is: "<<ableToMovePiece<<endl;
+
 	//ableToMovePiece = 0;
 }
 
@@ -25,16 +41,50 @@ void AIStateAngry::doTurn(Player player)
 		
 		if(!(GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, moves.at(i).endpos)) && (GameData()->board.GetTopPiece(moves.at(i).endpos) != 0))
 		{
-			cout<<"AHHASHHHHHHHHHHHHHHHHHHHHHHHHH"<<endl;
+			cout<<"I attack All of you!! General Attack go!!!!!!!!"<<endl;
 			GameData()->board.MovePiece(moves.at(i).beginpos, moves.at(i).endpos);
 			numberOfTurns++;
+
+
+			//Here keep a track of my available piece to calculate Emotion.
+			moves = GameData()->board.getPossibleMoves(player.piece);
+			vector<move> noDuplicateMoves;
+
+			for(int i = 0; i < moves.size(); i++)
+			{
+				if (i == 0)
+					noDuplicateMoves.push_back(moves.at(i));
+				if (!(i == 0) && !(moves.at(i - 1).beginpos == moves.at(i).beginpos))
+					noDuplicateMoves.push_back(moves.at(i));
+			}
+			
+			ableToMovePiece = noDuplicateMoves.size();
 			return;
+			//break;
 		}
 	}	
 	
 	int randomMove = rand() % moves.size();
 	GameData()->board.MovePiece(moves.at(randomMove).beginpos, moves.at(randomMove).endpos);
 	numberOfTurns++;
+
+
+
+
+
+	//Here keep a track of my available piece to calculate Emotion.
+	moves = GameData()->board.getPossibleMoves(player.piece);
+	vector<move> noDuplicateMoves;
+
+	for(int i = 0; i < moves.size(); i++)
+	{
+		if (i == 0)
+			noDuplicateMoves.push_back(moves.at(i));
+		if (!(i == 0) && !(moves.at(i - 1).beginpos == moves.at(i).beginpos))
+			noDuplicateMoves.push_back(moves.at(i));
+	}
+	
+	ableToMovePiece = noDuplicateMoves.size();
 	return;
 }
 
@@ -43,39 +93,33 @@ void AIStateAngry::onBoardChange()
 {
 	printf("target AI got the Board Update I GOT THE UPDATE !!!! AND I'm ANGRY!!!!!!!!!!!!!\n");
 	//if AI got attack!!?!? 
-	vector<int> possibleStartMoves;
-	for (int i = -1; i >= -GameData()->board.numstartstacks; i--)
+
+	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);//getting all possible moves.
+	vector<move> noDuplicateMoves;
+
+	for(int i = 0; i < moves.size(); i++)
 	{
-		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
-		{
-			possibleStartMoves.push_back(i);
-		}
+		if(i == 0)
+			noDuplicateMoves.push_back(moves.at(i));
+		if (!(i == 0) && !(moves.at(i -1).beginpos == moves.at(i).beginpos))
+			noDuplicateMoves.push_back(moves.at(i));
 	}
 
-	
-	vector<int> possibleActiveMoves;
-	for (int i = 0; i < MAX_GAME_POSITIONS; i++)
-	{
-		if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, i))
-		{
 
-			possibleActiveMoves.push_back(i);
-		}
-	}
-	//if (!(possibleStartMoves.empty()))
-	//	ableToMovePiece++;
-	if (possibleActiveMoves.size() <= ableToMovePiece)
+	cout<<"emotion                     : "<<emotion<<endl;
+	cout<<"noDuplicateMoves	           : "<<noDuplicateMoves.size()<<endl;
+	cout<<"ableToMove in Privious turn : "<<ableToMovePiece<<endl;
+	cout<<"numberOfTurns               : "<<numberOfTurns<<endl;
+	if (noDuplicateMoves.size() < ableToMovePiece)
+	{
+		cout<<"I got attack!?!?!?!>!>!>"<<endl;
+		ableToMovePiece--;
 		emotion++;
-	//else
-	//	emotion--;
-	
+	}
 
-	cout<<emotion<<endl;
-	cout<<possibleActiveMoves.size()<<endl;
-	cout<<numberOfTurns<<endl;
-	//cout<<typeid(this).name()<<endl;
-	//if (emotion == 2)
-	//	this->stateMachine->setState(ST_VENGEFUL);
+
+	if (emotion == 2)
+		this->stateMachine->setState(ST_VENGEFUL);
 	if (numberOfTurns > 3)
 		this->stateMachine->setState(ST_REGULAR);
 	
