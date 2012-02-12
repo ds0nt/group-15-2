@@ -329,6 +329,58 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="AIHintState"
+				>
+				<File
+					RelativePath=".\AIStateHint1.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint1.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint2.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint3.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint3.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint4.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint4.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint5.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint5.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint6.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AIStateHint6.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

@@ -21,7 +21,7 @@
 
 //	PLEASE READ ! IMPORTANT ! :
 //		- There is an error with the game that will cause it to end with a debug assertion
-//		- We have tried countlessly to fix the problem, yet it appears completely randomly for no apparent reason
+//		- We have tried countlessly to fix the problem, yet it appears completely randomly for no apparent reason <---- NOOB L2OPENGL LOLL
 //		- Please try to ignore the problem as it has little to do with the A.I. itself
 //		- It has also occurred during playthroughs with regular players as well
 //		- We are very sorry for the problem and wish it did not exist
@@ -39,6 +39,7 @@
 
 // Include the Foundation
 #include "foundation.h"
+#include "time.h"
 
 // Function Prototypes
 int main(int argc, char** argv);
@@ -86,9 +87,10 @@ static void Exit()
 // Load up the game...
 static void InitGame()
 {
+	srand(time(0));
 	// Set the initial scene
 	GameData()->SceneState = DEFAULT_SCENE;
-
+	
 	// Load Graphics
 	
 	GameData()->LotusBoard.decode("images/Lotus_Board.png");
@@ -138,6 +140,7 @@ static void InitGame()
 	GameData()->LotusPlayer4.decode("images/Player4-Type.png");
 	GameData()->LotusFinished.decode("images/finished.png");
 	GameData()->LotusAIRule.decode("images/ai-rule.png");
+	GameData()->LotusAIStateHint.decode("images/ai-state-hint.png");
 	GameData()->LotusAIState.decode("images/ai-state.png");
 	GameData()->LotusHuman.decode("images/human.png");
 	GameData()->LotusNotPlaying.decode("images/not_playing.png");

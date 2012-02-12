@@ -319,9 +319,12 @@ void AIStateRegular::onBoardChange()
 	//cout<<typeid(this).name()<<endl;
 	if (emotion > 1)
 		this->stateMachine->setState(ST_ANGRY);
+<<<<<<< HEAD
 
 	//if(emotion > 1)
 	//	this->stateMachine->setState(ST_VENGEFUL);
 		//this->stateMachine->setState(ST_VENGEFUL);
 	
+=======
+>>>>>>> 09296a16ac7b6afed218216b8206644a547bde31
 }

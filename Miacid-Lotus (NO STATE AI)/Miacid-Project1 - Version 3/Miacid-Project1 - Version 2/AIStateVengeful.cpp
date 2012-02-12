@@ -23,7 +23,6 @@ void AIStateVengeful::doTurn(Player player)
 	vector<move> moves = GameData()->board.getPossibleMoves(player.piece);
 	for (int i = 0; i < moves.size(); i++)
 	{
-		printf("%d, %d |", moves.at(i).beginpos, moves.at(i).endpos);
 		if(GameData()->board.IsPieceOnTop(this->gettinSum, moves.at(i).endpos))
 		{
 			GameData()->board.MovePiece(moves.at(i).beginpos, moves.at(i).endpos);

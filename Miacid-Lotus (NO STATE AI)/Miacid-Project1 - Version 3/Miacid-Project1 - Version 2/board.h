@@ -67,6 +67,7 @@ public:
 	bool MovePiece(int begin, int end);
 	bool PossibleMove(PIECE player);
 	vector<move> getPossibleMoves(PIECE player);
+	vector<move> getDeepestPiecesMoves(PIECE player);
 	bool PlayerHasWon(PIECE player);
 	int IsLocGood(int x1, int y1);
 
