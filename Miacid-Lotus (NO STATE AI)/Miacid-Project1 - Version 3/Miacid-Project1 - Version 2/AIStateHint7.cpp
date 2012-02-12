@@ -15,10 +15,18 @@ AIStateHint7::~AIStateHint7(void)
 }
 
 //Standard move, Move as far as we can!
-
+//50% go farthest, go random move
 void AIStateHint7::doTurn(Player player)
 {
-	move m = boardCalc::getFarthestMove(player.piece);
+	move m = MOVE_NULL;
+	if(GameData()->randInt(0,1) == 1)
+	{
+		m = boardCalc::getFarthestMove(player.piece);
+	}
+	else
+	{
+		m = boardCalc::getRandomMove(player.piece);
+	}
 	if(!m.isNull())
 		GameData()->board.MovePiece(m.beginpos, m.endpos);
 }
