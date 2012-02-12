@@ -297,12 +297,15 @@ vector<move> Board::getPossibleMoves(PIECE player)
 			if(i < 0)
 			{
 				int dist = this->GetSizeOfStack(i);
-				moves.push_back(move(i, dist-1));
+				if(dist < 4)
+					moves.push_back(move(i, dist-1));
 				moves.push_back(move(i, dist+2));
 			}
 			else
 			{
 				int dist = this->GetSizeOfStack(i);
+				if(i < 3 && i + dist > 2)
+					dist += 3;
 				moves.push_back(move(i, i+dist));
 			}
 		}
