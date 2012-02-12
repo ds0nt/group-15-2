@@ -43,6 +43,9 @@ void StateStrategy::setState(STATETYPE newState)
 	case ST_HINT_6:
 		this->currentState = new AIStateHint6(this);
 		break;
+	case ST_HINT_7:
+		this->currentState = new AIStateHint7(this);
+		break;
 	}
 }
 

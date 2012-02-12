@@ -13,6 +13,7 @@
 #include "AIStateHint4.h"
 #include "AIStateHint5.h"
 #include "AIStateHint6.h"
+#include "AIStateHint7.h"
 
 #include "AIStrategy.h"
 
@@ -20,7 +21,7 @@
 #include "foundation.h"
 
 enum STATETYPE {
-	ST_HINT_1, ST_HINT_2, ST_HINT_3, ST_HINT_4, ST_HINT_5, ST_HINT_6,
+	ST_HINT_1, ST_HINT_2, ST_HINT_3, ST_HINT_4, ST_HINT_5, ST_HINT_6, ST_HINT_7,
 	ST_REGULAR, ST_ANGRY, ST_RUSH_TO_END, ST_VENGEFUL
 };
 
