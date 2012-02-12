@@ -4,7 +4,7 @@ AIStateAngry::AIStateAngry(StateStrategy* stateMachine)
 {
 	this->stateMachine = stateMachine;
 	//this->stateMachine = 
-	this->gettinSum = GameData()->players.at(GameData()->currentPlayer).piece;
+	//this->gettinSum = GameData()->players.at(GameData()->currentPlayer).piece;
 	printf("IN NEW STATE ANGRY HAHHAHHAHAHHAHHAHHAHA!\n");
 	emotion = 0;
 	numberOfTurns = 0;
