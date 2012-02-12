@@ -17,7 +17,7 @@ AIStateAngry::~AIStateAngry(void)
 
 void AIStateAngry::doTurn(Player player)
 {
-	
+	Sleep(1000);
 	printf("I made the move there!!! yeSS!!!!!!!!!!!!!!!!!!!! HAHAHHAHAHHAHAH!!!! \n");
 	numberOfTurns++;
 	// Create a vector of rules that are of interest
@@ -63,7 +63,7 @@ void AIStateAngry::doTurn(Player player)
 	}
 
 	bool moveUseful = 1; // assume the move was useful; tell us if it wasn't.
-	TMove useMove = GameData()->Rules.at(ruleToFire).result;
+	TMove useMove = GameData()->Rules.at(ruleToFire).result;				//////USE MOVE IS THE RULE!!!!!!!!!!
 
 
 	//find the active piece on the board.
@@ -87,7 +87,7 @@ void AIStateAngry::doTurn(Player player)
 
 
 
-	/*
+	
 	if (possibleActiveMoves.empty())
 	{
 		switch (useMove)
@@ -111,9 +111,11 @@ void AIStateAngry::doTurn(Player player)
 		}
 	}
 	// Actually perform the selected move
-	switch (useMove)
-	{
-		case TM_ATTACK:
+
+	int attacking = 1;
+	//switch (useMove)
+	//{
+	//	case TM_ATTACK:
 			// Make a piece attack a large stack
 			// Useful if there is a large stack to jump on
 
@@ -141,16 +143,198 @@ void AIStateAngry::doTurn(Player player)
 
 			if (highest < 2) // small stack -> not very useful
 				moveUseful = 0;
-		
-			for (int i = 0; i < (signed)possibleActiveMoves.size(); i++)
+			*/
+			for (int i = 0; i < ((signed)possibleActiveMoves.size() + (signed)possibleStartMoves.size()); i++)
 			{
 				PIECE target;
+				int goingToAttack = 0;
+				int activeAble = possibleActiveMoves.size();
+				int startAble = possibleStartMoves.size();
+				if (activeAble != 0)
+				{
+					distance = GameData()->board.GetSizeOfStack(possibleActiveMoves.at(i)); //size of current stack
+					potend = possibleActiveMoves.at(i) + distance;
+					// Special case for left track
+					if (possibleActiveMoves.at(i) <= 2 && potend > 2)
+						potend += 3;
+					target = GameData()->board.GetTopPiece(potend); //size of current stack	
+					
 
-				target = GameData()->board.GetTopPiece(possibleActiveMoves.at(i)); //size of current stack	
-				cout<<"aksjdhflaskdjf;kl"<<endl;
+					for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
+					{
+						if(target == possibleActiveMoves.at(j))
+							cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+							//cout<<target<<endl;
+						else
+						{
+							cout<<"\nSOMEONE ELSES!\n"<<endl;
+							goingToAttack++;
+							break;
+						}
+					}
+					if(goingToAttack == 1)
+					{
+						cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+						GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
+						attacking = 0;
+						Sleep(4000);
+						break;
+					}
+				}
+				else if(startAble !=0)
+				{
+					distance = GameData()->board.GetSizeOfStack(possibleStartMoves.at(i - possibleActiveMoves.size()));
+					potend = distance;
+
+					target = GameData()->board.GetTopPiece(potend); //size of current stack	
+					for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
+					{
+						if(target == possibleActiveMoves.at(j))
+							cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+							//cout<<target<<endl;
+						else
+						{
+							cout<<"\nSOMEONE ELSES!\n"<<endl;
+							goingToAttack++;
+							break;
+						}
+					}
+					if(goingToAttack == 1)
+					{
+						cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+						GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
+						attacking = 0;
+						Sleep(4000);
+						break;
+					}
+					//potend += 3;
+					if (attacking == 1)
+					{
+						potend += 3;
+						for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
+						{
+							if(target == possibleActiveMoves.at(j))
+								cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+								//cout<<target<<endl;
+							else
+							{
+								cout<<"\nSOMEONE ELSES!\n"<<endl;
+								goingToAttack++;
+								break;
+							}
+						}
+						if(goingToAttack == 1)
+						{
+							cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+							GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
+							attacking = 0;
+							Sleep(4000);
+							break;
+						}
+					}
+				}
+				else
+					cout<<"nothing to attack!!"<<endl;
+			
+		//break;
+		if(attacking == 1)
+		switch(useMove)
+		{
+		case TM_ATTACK:
+			for (int i = 0; i < ((signed)possibleActiveMoves.size() + (signed)possibleStartMoves.size()); i++)
+			{
+				PIECE target;
+				int goingToAttack = 0;
+				int activeAble = possibleActiveMoves.size();
+				int startAble = possibleStartMoves.size();
+				if (activeAble != 0)
+				{
+					distance = GameData()->board.GetSizeOfStack(possibleActiveMoves.at(i)); //size of current stack
+					potend = possibleActiveMoves.at(i) + distance;
+					// Special case for left track
+					if (possibleActiveMoves.at(i) <= 2 && potend > 2)
+						potend += 3;
+					target = GameData()->board.GetTopPiece(potend); //size of current stack	
+					
+
+					for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
+					{
+						if(target == possibleActiveMoves.at(j))
+							cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+							//cout<<target<<endl;
+						else
+						{
+							cout<<"\nSOMEONE ELSES!\n"<<endl;
+							goingToAttack++;
+							break;
+						}
+					}
+					if(goingToAttack == 1)
+					{
+						cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+						GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
+						attacking = 0;
+						Sleep(4000);
+						break;
+					}
+				}
+				else if(startAble !=0)
+				{
+					distance = GameData()->board.GetSizeOfStack(possibleStartMoves.at(i - possibleActiveMoves.size()));
+					potend = distance;
+
+					target = GameData()->board.GetTopPiece(potend); //size of current stack	
+					for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
+					{
+						if(target == possibleActiveMoves.at(j))
+							cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+							//cout<<target<<endl;
+						else
+						{
+							cout<<"\nSOMEONE ELSES!\n"<<endl;
+							goingToAttack++;
+							break;
+						}
+					}
+					if(goingToAttack == 1)
+					{
+						cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+						GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
+						attacking = 0;
+						Sleep(4000);
+						break;
+					}
+					//potend += 3;
+					if (attacking !=0)
+					{
+						potend += 3;
+						for (int j = 0; j < (signed)possibleActiveMoves.size(); j++)
+						{
+							if(target == possibleActiveMoves.at(j))
+								cout<<"\nFUCK THIS IS MY PIECE!!!!!\n"<<endl;
+								//cout<<target<<endl;
+							else
+							{
+								cout<<"\nSOMEONE ELSES!\n"<<endl;
+								goingToAttack++;
+								break;
+							}
+						}
+						if(goingToAttack == 1)
+						{
+							cout<<"I ATTTACKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK"<<endl;
+							GameData()->board.MovePiece(possibleActiveMoves.at(i), -1);
+							attacking = 0;
+							Sleep(4000);
+							break;
+						}
+					}
+				}
+				else
+					break;
 			}
+			
 			break;
-		
 		case TM_FORWARD:
 			// Move a piece forward by the stack size
 			// Useful if the lap was significant
@@ -256,20 +440,11 @@ void AIStateAngry::doTurn(Player player)
 
 
 
-	//this->stateMachine->setState(ST_REGULAR);*/
+	//this->stateMachine->setState(ST_REGULAR);
 
-	for (int i = 0; i < (signed)possibleActiveMoves.size(); i++)
-	{
-		PIECE target;
-		distance = GameData()->board.GetSizeOfStack(possibleActiveMoves.at(i)); //size of current stack
-		potend = possibleActiveMoves.at(i) + distance;
-		target = GameData()->board.GetTopPiece(potend); //size of current stack	
-
-		//cout<<target<<endl;
-	}
-	Sleep(500);
+	
 	//break;
-}
+}}
 
 void AIStateAngry::onBoardChange()
 {
@@ -308,7 +483,7 @@ void AIStateAngry::onBoardChange()
 	//cout<<typeid(this).name()<<endl;
 	//if (emotion == 1)
 	//	this->stateMachine->setState(ST_VENGEFUL);
-	if (numberOfTurns > 1000)
+	if (numberOfTurns > 4)
 		this->stateMachine->setState(ST_REGULAR);
 	
 }
