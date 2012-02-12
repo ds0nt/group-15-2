@@ -122,8 +122,8 @@ void AIStateRegular::onBoardChange()
 	
 
 	//testing
-	this->stateMachine->setState(ST_VENGEFUL);
-	return;
+	//this->stateMachine->setState(ST_VENGEFUL);
+	//return;
 	//testing
 
 	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);//getting all possible moves.
