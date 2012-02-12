@@ -1,14 +1,16 @@
 #include "StateStrategy.h"
 
-StateStrategy::StateStrategy(Player* p)
+StateStrategy::StateStrategy(Player* p, STATETYPE defaultState)
 {
 	this->player = p;
-	this->currentState = new AIStateRegular(this);
+	this->currentState = 0;
+	this->setState(defaultState);
 }
 
 void StateStrategy::setState(STATETYPE newState)
 {
-	delete this->currentState;
+	if(currentState != 0)
+		delete this->currentState;
 	switch(newState)
 	{
 	case ST_REGULAR:
@@ -22,6 +24,24 @@ void StateStrategy::setState(STATETYPE newState)
 		break;
 	case ST_VENGEFUL:
 		this->currentState = new AIStateVengeful(this);
+		break;
+	case ST_HINT_1:
+		this->currentState = new AIStateHint1(this);
+		break;
+	case ST_HINT_2:
+		this->currentState = new AIStateHint2(this);
+		break;
+	case ST_HINT_3:
+		this->currentState = new AIStateHint3(this);
+		break;
+	case ST_HINT_4:
+		this->currentState = new AIStateHint4(this);
+		break;
+	case ST_HINT_5:
+		this->currentState = new AIStateHint5(this);
+		break;
+	case ST_HINT_6:
+		this->currentState = new AIStateHint6(this);
 		break;
 	}
 }

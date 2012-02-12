@@ -270,7 +270,4 @@ void AIStateRegular::onBoardChange()
 	cout<<emotion<<endl;
 	if (emotion >= 3)
 		this->stateMachine->setState(ST_ANGRY);
-
-		this->stateMachine->setState(ST_VENGEFUL);
-	
 }
