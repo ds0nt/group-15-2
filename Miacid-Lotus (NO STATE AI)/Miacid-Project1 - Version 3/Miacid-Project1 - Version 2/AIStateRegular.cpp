@@ -320,11 +320,8 @@ void AIStateRegular::onBoardChange()
 	if (emotion > 1)
 		this->stateMachine->setState(ST_ANGRY);
 
-<<<<<<< HEAD
 	//if(emotion > 1)
 	//	this->stateMachine->setState(ST_VENGEFUL);
-=======
-		this->stateMachine->setState(ST_VENGEFUL);
->>>>>>> aa204d049aae09ef1e34e461c62b41063f91f7f8
+		//this->stateMachine->setState(ST_VENGEFUL);
 	
 }

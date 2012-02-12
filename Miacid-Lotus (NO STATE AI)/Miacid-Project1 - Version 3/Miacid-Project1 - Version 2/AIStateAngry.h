@@ -9,6 +9,7 @@ class AIStateAngry :
 private:
 	int emotion;
 	int numberOfTurns;
+	PIECE gettinSum;
 	int ableToMovePiece;
 public:
 	StateStrategy* stateMachine;
