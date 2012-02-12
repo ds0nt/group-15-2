@@ -17,6 +17,9 @@ void RenderSelectPlayer(PTYPE p, int x, int y)
 		break;
 	case PT_RULEAI:
 		GameData()->LotusAIRule.displayAt(x,y);
+		break;	
+	case PT_STATEAIHINT:
+		GameData()->LotusAIStateHint.displayAt(x,y);
 		break;
 	case PT_STATEAI:
 		GameData()->LotusAIState.displayAt(x,y);

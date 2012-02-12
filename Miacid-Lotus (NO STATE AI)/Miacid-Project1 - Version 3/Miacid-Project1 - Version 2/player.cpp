@@ -20,6 +20,9 @@ void Player::changeType()
 		this->type = PT_RULEAI;
 		break;
 	case PT_RULEAI:
+		this->type = PT_STATEAIHINT;
+		break;
+	case PT_STATEAIHINT:
 		this->type = PT_STATEAI;
 		break;
 	case PT_STATEAI:
@@ -34,7 +37,11 @@ void Player::changeType()
 void Player::createStrategy()
 {
 	if (this->type == PT_STATEAI)
-		this->strategy = new StateStrategy(this);
+		this->strategy = new StateStrategy(this, ST_REGULAR);
+	if (this->type == PT_STATEAIHINT)
+	{
+		this->strategy = new StateStrategy(this, ST_HINT_7);
+	}
 	else if (this->type == PT_RULEAI)
 		this->strategy = new RuleStrategy();
 }

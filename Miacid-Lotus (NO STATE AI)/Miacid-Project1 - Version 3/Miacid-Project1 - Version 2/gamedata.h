@@ -26,6 +26,7 @@ public:
 	PNG LotusPlayer3;
 	PNG LotusPlayer4;
 	PNG LotusAIRule;
+	PNG LotusAIStateHint;
 	PNG LotusAIState;
 	PNG LotusHuman;
 	PNG LotusFinished;
@@ -65,6 +66,7 @@ public:
 	void CreatePlayer();
 	void NextPlayer();
 	int GetNumPlayers();
+	int randInt(int min, int max);
 
 	void RecordMove(TMove move);
 	void CreateRules();

@@ -21,9 +21,14 @@ struct move {
 		beginpos = a; 
 		endpos = b;
 	}
+	bool isNull()
+	{
+		return this->endpos == -1 && this->beginpos == -1;
+	}
 	int beginpos;
 	int endpos;
 };
+#define MOVE_NULL move(-1, -1)
 class Board
 {
 private:
@@ -67,6 +72,7 @@ public:
 	bool MovePiece(int begin, int end);
 	bool PossibleMove(PIECE player);
 	vector<move> getPossibleMoves(PIECE player);
+	vector<move> getDeepestPiecesMoves(PIECE player);
 	bool PlayerHasWon(PIECE player);
 	int IsLocGood(int x1, int y1);
 
