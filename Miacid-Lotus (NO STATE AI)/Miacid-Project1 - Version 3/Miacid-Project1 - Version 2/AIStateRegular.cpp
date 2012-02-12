@@ -26,17 +26,46 @@ void AIStateRegular::doTurn(Player player)
 //	thisPlayer = player;
 	//possibleActiveMove = new vector<int>;
 	
-	vector<move> moves = GameData()->board.getPossibleMoves(player.piece);
-	for(int i=0; i< moves.size();i++)
+	printf("Great Success!\n");
+	// Find active pieces on the board
+	
+	// Create a vector of rules that are of interest
+	vector<TRule*> valid;
+	TRule * curRule;
+
+	// Keep track of the last rule fired. We will need it later on to check if you were attacked to reduce the weight.
+	static int lastRuleFired = -1;
+
+	// Flag the rules that matched
+	for (int i = 0; i < GameData()->Rules.size(); i++)
 	{
-		if((GameData()->board.IsPieceOnTop(player.piece, moves.at(i).endpos)) || (GameData()->board.GetSizeOfStack(moves.at(i).endpos) == 0))
+		curRule = &(GameData()->Rules.at(i));
+
+		if (curRule->last == GameData()->Moves.at(0) && curRule->secondLast == GameData()->Moves.at(1) && 
+			curRule->thirdLast == GameData()->Moves.at(2)) //what does this mean??
+			valid.push_back(&(GameData()->Rules.at(i)));
+	}
+
+	// Decide which rule to use based on the valid list and given weights
+	int ruleToFire = -1;
+	int topWeight = 0;
+	int highest = 0;
+	int distance = 0;
+	int movepos = -1;
+	int potend = -1;
+	int endpos = 0;
+	int moveid = 0;
+	int path = 0; //left or right (0 and less or 1 or above)
+
+	for (int i = 0; i < valid.size(); i++)
+	{
+		if (ruleToFire == -1)
 		{
-			GameData()->board.MovePiece(moves.at(i).beginpos, moves.at(i).endpos);
-			return;
+			ruleToFire = valid.at(i)->rulenum;
+			topWeight = valid.at(i)->weight;
 		}
-		if(moves.at(i).endpos ==  LOTUS_TRAMPOLINE)
+		else if (valid.at(i)->weight > topWeight)
 		{
-<<<<<<< HEAD
 			ruleToFire = valid.at(i)->rulenum;
 			topWeight = valid.at(i)->weight;
 		}
@@ -221,21 +250,8 @@ void AIStateRegular::doTurn(Player player)
 					endpos = 6;
 				else
 					endpos = GameData()->board.GetSizeOfStack(possibleStartMoves.at(moveid)) - 1;
-=======
-			int land = 2*(i - moves.at(i).beginpos);
-			
-			if(!(GameData()->board.IsPieceOnTop(player.piece, land)))
-			{
-				int select;
-				srand((unsigned)time(0));
-				select = rand()%moves.size()+1;
-				GameData()->board.MovePiece(select, -1);
-				return;
->>>>>>> 42a01e3772b1a6b7a2723a6804019a45ea0583c8
 			}
-			
 			else
-<<<<<<< HEAD
 				endpos = GameData()->board.GetSizeOfStack(possibleStartMoves.at(moveid)) + 2;
 
 			// Update and and change your state
@@ -249,15 +265,6 @@ void AIStateRegular::doTurn(Player player)
 			moveUseful = 0;
 		break;
 	}	
-=======
-			GameData()->board.MovePiece(moves.at(i).beginpos,land);
-			return;
-		}
-	}
-
-	
-	
->>>>>>> 42a01e3772b1a6b7a2723a6804019a45ea0583c8
 }
 
 void AIStateRegular::onBoardChange()
@@ -313,12 +320,8 @@ void AIStateRegular::onBoardChange()
 	if (emotion > 1)
 		this->stateMachine->setState(ST_ANGRY);
 
-<<<<<<< HEAD
 	//if(emotion > 1)
 	//	this->stateMachine->setState(ST_VENGEFUL);
 		//this->stateMachine->setState(ST_VENGEFUL);
 	
-=======
-		this->stateMachine->setState(ST_VENGEFUL);
->>>>>>> 42a01e3772b1a6b7a2723a6804019a45ea0583c8
 }
