@@ -31,7 +31,7 @@ move boardCalc::getMoveBigBounce(PIECE p)
 		move m = moves.at(i);
 		if(m.endpos == 10) //land on trampoline
 		{
-			if(m.endpos - m.beginpos >= 4) //distance of 4 or more
+			if(m.endpos - m.beginpos >= 2) //distance of 2 or more
 				goodmoves.push_back(m);
 		}
 	}
@@ -115,10 +115,13 @@ move boardCalc::getMoveStackHighest(PIECE p)
 int boardCalc::getTallestStackSize(PIECE p)
 {
 	vector<move> moves = GameData()->board.getPossibleMoves(p);
-	int tallest = 1;
+	int tallest = 0;
 	for(int i = 0; i < moves.size(); i++)
-		if(moves.at(i).endpos - moves.at(i).beginpos > tallest)
-			tallest = moves.at(i).endpos - moves.at(i).beginpos;
+	{
+		int thisheight = GameData()->board.GetSizeOfStack(moves.at(i).beginpos);
+		if(thisheight > tallest)
+			tallest = thisheight; 
+	}
 	return tallest;
 }
 move boardCalc::getRandomMove(PIECE p)
@@ -132,6 +135,25 @@ move boardCalc::getRandomMove(PIECE p)
 	return MOVE_NULL;
 
 }
+
+move boardCalc::getFarthestMove(PIECE p)
+{
+	vector<move> moves = GameData()->board.getPossibleMoves(p);
+	int tallest = 0;
+	move best = MOVE_NULL;
+
+	for(int i = 0; i < moves.size(); i++)
+	{
+		int thisheight = GameData()->board.GetSizeOfStack(moves.at(i).beginpos);
+		if(thisheight > tallest)
+		{
+			tallest = thisheight; 
+			best = moves.at(i);
+		}
+	}
+	return best;
+}
+
 bool boardCalc::canMove(PIECE p)
 {
 	vector<move> moves = GameData()->board.getPossibleMoves(p);

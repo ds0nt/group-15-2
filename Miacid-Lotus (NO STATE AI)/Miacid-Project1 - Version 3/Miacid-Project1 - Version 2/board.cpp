@@ -457,8 +457,6 @@ bool Board::MovePiece(int begin, int end = -1)
 				if (end > MAX_GAME_POSITIONS)
 					end = MAX_GAME_POSITIONS;
 
-				// Jump to the end?
-				printf("moving piece from %i to %i over distance %i\n", begin, end, distance*2);
 					
 				if (end == MAX_GAME_POSITIONS)
 					this->finish.push_back(this->position[begin].back());
@@ -473,7 +471,6 @@ bool Board::MovePiece(int begin, int end = -1)
 			}
 
 			// Size is okay. Perform the move.
-			printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
 			this->position[end].push_back(this->position[begin].back());
 			this->position[begin].pop_back();
 
@@ -511,7 +508,6 @@ bool Board::MovePiece(int begin, int end = -1)
 			if (this->position[begin].size() >= (unsigned)distance)
 			{
 				// Moving piece to the finish zone
-				printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
 				this->finish.push_back(this->position[begin].back());
 				this->position[begin].pop_back();
 
@@ -542,7 +538,6 @@ bool Board::MovePiece(int begin, int end = -1)
 						end = MAX_GAME_POSITIONS;
 
 					// Jump to the end?
-					printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
 					
 					if (end == MAX_GAME_POSITIONS)
 						this->finish.push_back(this->position[begin].back());
@@ -558,7 +553,6 @@ bool Board::MovePiece(int begin, int end = -1)
 				else
 				{
 					// Normal movement
-					printf("moving piece from %i to %i over distance %i\n", begin, end, distance);
 					this->position[end].push_back(this->position[begin].back());
 					this->position[begin].pop_back();
 

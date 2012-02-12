@@ -17,10 +17,14 @@ AIStateHint2::~AIStateHint2(void)
 //Attack the enemy player if we can!
 //Otherwize... do something unintelligable.
 
+
+
+//Moved, Can Bounce Again -> Stay This State
+//Moved, Cannot Bounce, Can Set -> State 3
+//Moved, Cannot Bounce, Cannot Set, Can Stack -> State 4
+//Moved, Cannot Bounce, Cannot Set, Cannot Stack -> State 7
 void AIStateHint2::doTurn(Player player)
 {	
-	
-	Sleep(1000);
 	move m = boardCalc::getMoveBigBounce(player.piece);
 	
 	if(!m.isNull())
@@ -28,20 +32,22 @@ void AIStateHint2::doTurn(Player player)
 	
 	//great success -> now keep going or make a high stack, or go back to normal
 
-	if(boardCalc::getMoveBigBounce(player.piece).isNull())
+	if(!boardCalc::getMoveBigBounce(player.piece).isNull())
+		return;
+
+	if(!boardCalc::getMoveSetBounce(player.piece).isNull())
 	{
-		if(boardCalc::getMoveStackHighest(player.piece).isNull())
-		{
-			//regular move
-			this->stateMachine->setState(ST_HINT_7);
-		}
-		else
-		{
-			//Make high stack
-			this->stateMachine->setState(ST_HINT_4);
-		}
+		this->stateMachine->setState(ST_HINT_3);
+		return;
 	}
-	//otherwise keep up the spree
+
+	if(!boardCalc::getMoveStackHighest(player.piece).isNull())
+	{
+		this->stateMachine->setState(ST_HINT_4);
+		return;
+	}
+
+	this->stateMachine->setState(ST_HINT_7);
 }
 
 //Cannot Bounce && Cannot Set Bounce -> State 7

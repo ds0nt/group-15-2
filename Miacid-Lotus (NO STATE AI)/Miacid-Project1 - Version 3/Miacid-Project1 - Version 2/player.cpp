@@ -40,7 +40,7 @@ void Player::createStrategy()
 		this->strategy = new StateStrategy(this, ST_REGULAR);
 	if (this->type == PT_STATEAIHINT)
 	{
-		this->strategy = new StateStrategy(this, ST_HINT_1);
+		this->strategy = new StateStrategy(this, ST_HINT_7);
 	}
 	else if (this->type == PT_RULEAI)
 		this->strategy = new RuleStrategy();
