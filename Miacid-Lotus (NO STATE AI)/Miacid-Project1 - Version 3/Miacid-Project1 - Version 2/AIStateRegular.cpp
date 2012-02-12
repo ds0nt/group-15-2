@@ -91,6 +91,19 @@ void AIStateRegular::doTurn(Player player)
 
 void AIStateRegular::onBoardChange()
 {
+	vector<int> possibleActiveMoves;
+
+	if (GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, 6) || GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, 7))
+	{
+		if (GameData()->board.GetSizeOfStack(6) == 4 || GameData()->board.GetSizeOfStack(7) == 3)
+		{
+			this->stateMachine->setState(ST_ADVST);
+			return;
+		}
+		else
+			return;
+	}
+
 	if(GameData()->board.IsPieceOnTop(this->stateMachine->player->piece, MAX_GAME_POSITIONS-1))
 	{
 		this->stateMachine->setState(ST_RUSH_TO_END);
@@ -106,6 +119,8 @@ void AIStateRegular::onBoardChange()
 		this->stateMachine->setState(ST_RUSH_TO_END);
 		return;
 	}
+
+	
 
 	printf("Board Update while AI is in REGULAR STATE!!!!\n");
 	//if i got attack!

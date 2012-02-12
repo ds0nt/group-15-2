@@ -5,7 +5,7 @@
 #include "AIStateAngry.h"
 #include "AIStateRushToEnd.h"
 #include "AIStateVengeful.h"
-
+#include "AIStateAdvST.h"
 
 #include "AIStateHint1.h"
 #include "AIStateHint2.h"
@@ -22,7 +22,7 @@
 
 enum STATETYPE {
 	ST_HINT_1, ST_HINT_2, ST_HINT_3, ST_HINT_4, ST_HINT_5, ST_HINT_6, ST_HINT_7,
-	ST_REGULAR, ST_ANGRY, ST_RUSH_TO_END, ST_VENGEFUL
+	ST_REGULAR, ST_ANGRY, ST_RUSH_TO_END, ST_VENGEFUL, ST_ADVST
 };
 
 class StateStrategy : public AIStrategy

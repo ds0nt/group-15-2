@@ -25,6 +25,9 @@ void StateStrategy::setState(STATETYPE newState)
 	case ST_VENGEFUL:
 		this->currentState = new AIStateVengeful(this);
 		break;
+	case ST_ADVST:
+		this->currentState = new AIStateAdvST(this);
+		break;
 	case ST_HINT_1:
 		this->currentState = new AIStateHint1(this);
 		break;
