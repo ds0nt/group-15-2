@@ -140,8 +140,8 @@ static void InitGame()
 	GameData()->LotusPlayer4.decode("images/Player4-Type.png");
 	GameData()->LotusFinished.decode("images/finished.png");
 	GameData()->LotusAIRule.decode("images/ai-rule.png");
-	GameData()->LotusAIStateHint.decode("images/ai-state-hint.png");
-	GameData()->LotusAIState.decode("images/ai-state.png");
+	GameData()->LotusAIStateHint.decode("images/ai-state.png");
+	GameData()->LotusAIState.decode("images/ai-state-hint.png");
 	GameData()->LotusHuman.decode("images/human.png");
 	GameData()->LotusNotPlaying.decode("images/not_playing.png");
 	GameData()->LotusTurn.decode("images/won.png");

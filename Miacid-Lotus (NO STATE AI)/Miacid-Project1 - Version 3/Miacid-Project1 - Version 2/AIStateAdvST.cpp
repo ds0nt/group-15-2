@@ -18,7 +18,7 @@ AIStateAdvST::~AIStateAdvST(void)
 
 void AIStateAdvST::doTurn(Player player)
 {
-	printf("Doing AdvSpringTile move!!!\n");
+	printf("#############Doing AdvSpringTile move!!!#############\n");
 	Sleep(1000);
 	vector<move> moves = GameData()->board.getPossibleMoves(player.piece);
 	/*for (int i = 0; i < moves.size(); i++)
@@ -47,6 +47,6 @@ void AIStateAdvST::doTurn(Player player)
 
 void AIStateAdvST::onBoardChange()
 {
-	printf("AI just loves Springtile...!!! -_-\n");	
+	printf("@@@@@@@@@@AI had(or used) a chance of going to Springtile...@@@@@@@@@@\n");	
 	this->stateMachine->setState(ST_REGULAR);
 }

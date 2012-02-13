@@ -2,9 +2,17 @@
 AIStateVengeful::AIStateVengeful(StateStrategy* stateMachine)
 {
 	this->stateMachine = stateMachine;
-	this->gettinSum = GameData()->players.at(GameData()->currentPlayer).piece;
+	//int target;
+	if ((GameData()->players.at(GameData()->currentPlayer).piece - 1) == 0)
+	{
+		gettinSum = GameData()->players.at(GameData()->numplayers-1).piece;
+	}
+	else
+		gettinSum = GameData()->players.at(GameData()->currentPlayer - 1).piece;
+	//this->gettinSum = GameData()->players.at(GameData()->currentPlayer - 1).piece;
 	this->enactedCount = 0;
 	cout<<"\nI'm Vengeful!! i'll target a specific player and only attack that guy!!\n"<<endl;
+	cout<<"\nI attacked "<<this->gettinSum<<" guy "<<this->enactedCount<<" times\n"<<endl;
 }
 
 //This is the Regular State
@@ -22,7 +30,8 @@ AIStateVengeful::~AIStateVengeful(void)
 void AIStateVengeful::doTurn(Player player)
 {	
 	vector<move> moves = GameData()->board.getPossibleMoves(player.piece);
-	cout<<"got here"<<endl;
+	cout<<"got here"<<this->gettinSum<<endl;
+	cout<<"And I am"<<this->stateMachine->player->piece<<endl;
 	for (int i = 0; i < moves.size(); i++)
 	{
 		if(GameData()->board.IsPieceOnTop(this->gettinSum, moves.at(i).endpos))
@@ -45,6 +54,6 @@ void AIStateVengeful::doTurn(Player player)
 
 void AIStateVengeful::onBoardChange()
 {
-	if(this->enactedCount > 2)
+	if(this->enactedCount > 1)
 		this->stateMachine->setState(ST_REGULAR);
 }
