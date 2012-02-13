@@ -3,15 +3,13 @@
 AIStateAngry::AIStateAngry(StateStrategy* stateMachine)
 {
 	this->stateMachine = stateMachine;
-	//this->stateMachine = 
-	//this->gettinSum = GameData()->players.at(GameData()->currentPlayer).piece;
-	printf("\nMy state Changed!!! now i'm ANGRY!!!!!!!!!!!!!\n");
+
 	emotion = 0;
 	numberOfTurns = 0;
 	
 	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);
+	
 	vector<move> noDuplicateMoves;
-
 	for(int i = 0; i < moves.size(); i++)
 	{
 		if (i == 0)
@@ -24,7 +22,6 @@ AIStateAngry::AIStateAngry(StateStrategy* stateMachine)
 
 	cout<<"current available piece in the initaliizing the angry state is: "<<ableToMovePiece<<endl;
 
-	//ableToMovePiece = 0;
 }
 
 AIStateAngry::~AIStateAngry(void)

@@ -5,10 +5,6 @@ AIStateHint3::AIStateHint3(StateStrategy* stateMachine)
 	printf("Changing to State3 -- SET BOUNCE\n");
 }
 
-//This is the Regular State
-//
-//
-
 AIStateHint3::~AIStateHint3(void)
 {
 	

@@ -5,9 +5,6 @@ AIStateHint1::AIStateHint1(StateStrategy* stateMachine)
 	printf("Changing to State1 -- Rush To End\n");
 }
 
-//This is the Regular State
-//
-//
 
 AIStateHint1::~AIStateHint1(void)
 {

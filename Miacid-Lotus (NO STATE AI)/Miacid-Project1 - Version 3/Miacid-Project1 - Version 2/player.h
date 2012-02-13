@@ -25,4 +25,5 @@ public:
 	~Player();
 	void createStrategy();	
 	void changeType();
+	void doTurn();
 };

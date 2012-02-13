@@ -11,6 +11,10 @@ Player::~Player()
 
 }
 
+void Player::doTurn()
+{
+	this->strategy->doTurn(*this);
+}
 
 void Player::changeType()
 {

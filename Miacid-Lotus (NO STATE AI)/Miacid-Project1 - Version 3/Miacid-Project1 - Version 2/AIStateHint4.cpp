@@ -5,9 +5,6 @@ AIStateHint4::AIStateHint4(StateStrategy* stateMachine)
 	printf("Changing to State4 -- Make High Stack\n");
 }
 
-//This is the Regular State
-//
-//
 
 AIStateHint4::~AIStateHint4(void)
 {

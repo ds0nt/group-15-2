@@ -5,9 +5,6 @@ AIStateHint5::AIStateHint5(StateStrategy* stateMachine)
 	printf("Changing to State5 -- Only Stacks of 1, Random Select\n");
 }
 
-//This is the Regular State
-//
-//
 
 AIStateHint5::~AIStateHint5(void)
 {

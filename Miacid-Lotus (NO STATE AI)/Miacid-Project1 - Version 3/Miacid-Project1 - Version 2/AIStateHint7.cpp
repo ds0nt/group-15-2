@@ -5,10 +5,6 @@ AIStateHint7::AIStateHint7(StateStrategy* stateMachine)
 	printf("Changing to State7 -- Farthest Move\n");
 }
 
-//This is the Regular State
-//
-//
-
 AIStateHint7::~AIStateHint7(void)
 {
 	

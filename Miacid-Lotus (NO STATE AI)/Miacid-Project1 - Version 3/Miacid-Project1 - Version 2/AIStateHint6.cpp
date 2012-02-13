@@ -5,10 +5,6 @@ AIStateHint6::AIStateHint6(StateStrategy* stateMachine)
 	printf("Changing to State6 -- Move Enemy!\n");
 }
 
-//This is the Regular State
-//
-//
-
 AIStateHint6::~AIStateHint6(void)
 {
 

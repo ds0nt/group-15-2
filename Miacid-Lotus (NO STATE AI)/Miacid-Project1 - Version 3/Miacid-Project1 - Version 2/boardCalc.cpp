@@ -168,3 +168,20 @@ move boardCalc::getMoveUncoverDeepest(PIECE p)
 	int randomMove = GameData()->randInt(0, moves.size()-1);
 	return moves.at(randomMove);
 }
+
+int boardCalc::getUncoveredCount(PIECE p)
+{
+	vector<move> moves = GameData()->board.getPossibleMoves(p);
+
+	int lastbegin = -100;
+	int count = 0;
+	for(int i = 0; i < moves.size(); i++)
+	{
+		if(lastbegin != moves.at(i).beginpos)
+		{
+			count++;
+			lastbegin = moves.at(i).beginpos;
+		}
+	}
+	return count;
+}

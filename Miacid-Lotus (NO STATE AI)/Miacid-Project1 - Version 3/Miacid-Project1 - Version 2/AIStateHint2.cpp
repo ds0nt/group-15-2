@@ -5,10 +5,6 @@ AIStateHint2::AIStateHint2(StateStrategy* stateMachine)
 	printf("Changing to State2 -- Use Trampoline\n");
 }
 
-//This is the Regular State
-//
-//
-
 AIStateHint2::~AIStateHint2(void)
 {
 	

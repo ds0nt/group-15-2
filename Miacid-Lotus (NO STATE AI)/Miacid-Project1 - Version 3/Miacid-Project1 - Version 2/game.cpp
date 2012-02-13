@@ -100,12 +100,12 @@ void GameMainBoard()
 	else
 	{
 		Sleep(500);
-		p->strategy->doTurn(*p);
+		p->doTurn();
 		GameData()->NextPlayer();
 		BoardChangeNotify();
 	}
 
-	if (GameData()->board.PlayerHasWon(p->piece))
+	if (GameData()->board.PlayerHasWon(p->piece))		
 		GameData()->SceneState = SCENE_RESULTS;
 }
 

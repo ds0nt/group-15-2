@@ -13,5 +13,5 @@ public:
 	static move getFarthestMove(PIECE p);
 	static bool canMove(PIECE p);
 	static move getMoveUncoverDeepest(PIECE p);
-	
+	static int getUncoveredCount(PIECE p);
 };
