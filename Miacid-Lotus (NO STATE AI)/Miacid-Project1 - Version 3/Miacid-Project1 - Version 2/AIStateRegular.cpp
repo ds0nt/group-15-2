@@ -121,10 +121,6 @@ void AIStateRegular::onBoardChange()
 	}
 	
 
-	//testing
-	//this->stateMachine->setState(ST_VENGEFUL);
-	//return;
-	//testing
 
 	vector<move> moves = GameData()->board.getPossibleMoves(this->stateMachine->player->piece);//getting all possible moves.
 	vector<move> noDuplicateMoves;
@@ -137,15 +133,18 @@ void AIStateRegular::onBoardChange()
 			noDuplicateMoves.push_back(moves.at(i));
 	}
 
-	cout<<"emotion                     : "<<emotion<<endl;
-	cout<<"noDuplicateMoves            : "<<noDuplicateMoves.size()<<endl;
-	cout<<"ableToMove in Privious turn : "<<ableToMovePiece<<endl;
+	
 	if (noDuplicateMoves.size() < ableToMovePiece)
 	{
 		cout<<"I got attack!?!?!?!>!>!>"<<endl;
 		ableToMovePiece--;
 		emotion++;
 	}
+	cout<<"emotion                     : "<<emotion<<endl;
+	cout<<"noDuplicateMoves            : "<<noDuplicateMoves.size()<<endl;
+	cout<<"ableToMove in Privious turn : "<<ableToMovePiece<<endl;
+	
+
 
 	if (emotion > 2)
 		this->stateMachine->setState(ST_ANGRY);
